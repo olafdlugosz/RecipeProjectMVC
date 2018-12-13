@@ -17,24 +17,24 @@ namespace RecipeProjectMVC
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
+            //var host = CreateWebHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<RecipeDbContext>();
-                    DbInnitializer.Seed(context);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            }
+            //using (var scope = host.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    try
+            //    {
+            //        var context = services.GetRequiredService<RecipeDbContext>();
+            //        DbInnitializer.Seed(context);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Debug.WriteLine(e.Message);
+            //    }
+            //}
 
-            host.Run();
-            // CreateWebHostBuilder(args).Build().Run();
+            //host.Run();
+             CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

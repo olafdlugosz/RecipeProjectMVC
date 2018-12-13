@@ -1,0 +1,13 @@
+﻿@model Recipe
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1>Details</h1>
+
+<h3>@Model.Label</h3>
+
+@foreach (var item in Model.Nutritioninfo)
+{
+    <div>@item.Label - @item.Total</div>
+}

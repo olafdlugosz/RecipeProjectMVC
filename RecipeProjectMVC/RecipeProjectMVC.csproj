@@ -8,6 +8,47 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\mdbootstrap\css\mdb.css" />
+    <None Include="wwwroot\lib\mdbootstrap\css\mdb.lite.css" />
+    <None Include="wwwroot\lib\mdbootstrap\css\mdb.lite.min.css" />
+    <None Include="wwwroot\lib\mdbootstrap\css\mdb.min.css" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Thin.eot" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Thin.ttf" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Thin.woff" />
+    <None Include="wwwroot\lib\mdbootstrap\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\01.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\02.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\03.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\04.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\05.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\06.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\07.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\08.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\overlays\09.png" />
+    <None Include="wwwroot\lib\mdbootstrap\img\svg\arrow_left.svg" />
+    <None Include="wwwroot\lib\mdbootstrap\img\svg\arrow_right.svg" />
+    <None Include="wwwroot\lib\mdbootstrap\js\mdb.js" />
+    <None Include="wwwroot\lib\mdbootstrap\js\mdb.min.js" />
   </ItemGroup>
 
 </Project>

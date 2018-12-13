@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeProjectMVC.Models.Entities;
+using RecipeProjectMVC.Services;
 
 namespace RecipeProjectMVC
 {
@@ -25,6 +26,8 @@ namespace RecipeProjectMVC
         {
             services.AddDbContext<RecipeDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<IRecipeService, RecipeService>();
+
             services.AddMvc();
         }
 
@@ -34,13 +37,14 @@ namespace RecipeProjectMVC
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-           // app.UseAuthentication(); // used for Identity later..
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            // app.UseAuthentication(); // used for Identity later..
+            app.UseMvcWithDefaultRoute();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

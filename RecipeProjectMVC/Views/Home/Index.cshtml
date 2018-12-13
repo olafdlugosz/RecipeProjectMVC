@@ -1,0 +1,40 @@
+﻿@model HomeViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<h1>Index</h1>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Recipes)
+        {
+            <div class="col-lg-3 col-md-12 mb-4 d-flex align-items-stretch">
+                <!-- Card -->
+                <div class="card hoverable wow zoomInRight">
+
+                    <!-- Card image -->
+                    <div class="view overlay zoom">
+                        <img class="card-img-top" src="@item.Image" alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="p-3 d-flex">
+                        <!-- Card content -->
+                        <div class="card-body">
+
+                            <!-- Title -->
+                            <h4 class="card-title">@item.Label</h4>
+                            <!-- Text -->
+                            <p class="card-text">That's one tastey dish!</p>
+                            <!-- Button -->
+                            <a href="#" class="btn btn-primary">Button</a>
+
+                        </div>
+                        </div>
+                    </div>
+                    <!-- Card -->
+                </div>
+        }
+    </div>
+</div>
