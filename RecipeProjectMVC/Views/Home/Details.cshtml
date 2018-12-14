@@ -1,4 +1,4 @@
-﻿@model Recipe
+﻿@model RecipeDTO
 @{
     ViewBag.Title = "Details";
 }
@@ -6,8 +6,17 @@
 <h1>Details</h1>
 
 <h3>@Model.Label</h3>
+<h4>@Model.TotalWeight</h4>
 
+@foreach (var item in Model.HealthLabel)
+{
+    <div>@item.StringValue</div>
+}
 @foreach (var item in Model.Nutritioninfo)
 {
     <div>@item.Label - @item.Total</div>
+}
+@foreach (var item in Model.Ingredient)
+{
+    <div>@item.Text - @item.Weight</div>
 }

@@ -1,18 +1,22 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace RecipeProjectMVC.Models.Entities
 {
     public partial class RecipeDbContext : DbContext
     {
+        public IConfiguration Configuration { get; }
         public RecipeDbContext()
         {
+            
         }
-
-        public RecipeDbContext(DbContextOptions<RecipeDbContext> options)
+     
+        public RecipeDbContext(DbContextOptions<RecipeDbContext> options, IConfiguration configuration)
             : base(options)
         {
+            Configuration = configuration;
         }
 
         public virtual DbSet<HealthLabel> HealthLabel { get; set; }
@@ -24,8 +28,8 @@ namespace RecipeProjectMVC.Models.Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Recipe;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("ContextConnection"));
             }
         }
 

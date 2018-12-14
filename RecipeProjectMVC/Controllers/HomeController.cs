@@ -16,9 +16,9 @@ namespace RecipeProjectMVC.Controllers
             _service = service;
         }
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _service.GetHomeViewModel();
+            var model = await _service.GetHomeViewModelAsync();
             return View(model);
         }
         public IActionResult Details(int id)

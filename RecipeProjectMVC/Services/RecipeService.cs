@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace RecipeProjectMVC.Services
 {
@@ -15,7 +18,7 @@ namespace RecipeProjectMVC.Services
             _context = recipeDbContext;
         }
 
-        public HomeViewModel GetHomeViewModel()
+        public async Task<HomeViewModel> GetHomeViewModelAsync()
         {
             var model = new HomeViewModel();
             //get lowest and highest Ids from database
@@ -28,7 +31,7 @@ namespace RecipeProjectMVC.Services
                 randomIds.Add(i);
             }
             //Get all Recipes from database.. I should cache this later.
-            var query = _context.Recipe.ToList();
+            var query =  await Task.Run(() => _context.Recipe.ToList());
             var listToAdd = new List<Recipe>();
             for (int i = 0; i < 20; i++)
             {
@@ -42,7 +45,7 @@ namespace RecipeProjectMVC.Services
             }
             // map 20 random Recipes to the ViewModel
             model.Recipes = listToAdd;
-            return model;
+            return  model;
 
         }
 
@@ -51,10 +54,20 @@ namespace RecipeProjectMVC.Services
             throw new NotImplementedException();
         }
 
-        public Recipe GetRecípe(int id)
+        public RecipeDTO GetRecípe(int id)
         {
-            var item = _context.Recipe.Find(id);
-            return _context.Recipe.Find(id);
+            //TODO FIX THIS FUCKING QUERY
+            var recipeEntity = _context.Recipe
+                .Include(o => o.Ingredient)
+                .Include(g => g.HealthLabel)
+                .Include(z => z.Nutritioninfo)
+                .Where(p => p.Id == id)
+                .FirstOrDefault();
+            var recipe = Mapper.Map<RecipeDTO>(recipeEntity);
+            //recipe.HealthLabel = Mapper.Map<ICollection<HealthLabelDTO>>(source: recipeEntity.HealthLabel.ToList());
+            //recipe.Ingredient = Mapper.Map<ICollection<IngredientDTO>>(source: recipeEntity.Ingredient.ToList());
+            //recipe.Nutritioninfo = Mapper.Map<ICollection<NutritioninfoDTO>>(source: recipeEntity.Nutritioninfo.ToList());
+            return recipe;
         }
     }
 }

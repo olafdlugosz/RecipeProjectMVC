@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.Services;
 
@@ -38,6 +39,18 @@ namespace RecipeProjectMVC
             app.UseStatusCodePages();
             app.UseStaticFiles();
             // app.UseAuthentication(); // used for Identity later..
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                //cfg.CreateMap<HealthLabel, HealthLabelDTO>();
+                //cfg.CreateMap<Ingredient, IngredientDTO>();
+                //cfg.CreateMap<Nutritioninfo, NutritioninfoDTO>();
+                cfg.CreateMap<Recipe, RecipeDTO>()
+                .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
+                .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
+                .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
+            }
+            );
+            AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();
             app.UseMvcWithDefaultRoute();
             //app.UseMvc(routes =>
             //{
