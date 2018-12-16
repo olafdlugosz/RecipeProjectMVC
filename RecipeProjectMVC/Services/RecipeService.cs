@@ -7,15 +7,18 @@ using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using RecipeProjectMVC.Repositories;
 
 namespace RecipeProjectMVC.Services
 {
     public class RecipeService : IRecipeService
     {
         private readonly RecipeDbContext _context;
-        public RecipeService(RecipeDbContext recipeDbContext)
+        private readonly NutritioninfoRepository _nutritionInfoRepo;
+        public RecipeService(RecipeDbContext recipeDbContext, NutritioninfoRepository repository)
         {
             _context = recipeDbContext;
+            _nutritionInfoRepo = repository;
         }
 
         public async Task<HomeViewModel> GetHomeViewModelAsync()
@@ -32,11 +35,11 @@ namespace RecipeProjectMVC.Services
                 randomIds.Add(random.Next(idLow, idHigh));
             }
             //Query the database for random id matches
-            var taskList = await Task.Run(()=> _context.Recipe.Where(r => randomIds.Contains(r.Id)).ToListAsync());
+            var taskList = await Task.Run(() => _context.Recipe.Where(r => randomIds.Contains(r.Id)).ToListAsync());
 
             // map 20 random Recipes to the ViewModel
             model.Recipes = taskList;
-            return  model;
+            return model;
 
         }
 
@@ -59,11 +62,29 @@ namespace RecipeProjectMVC.Services
 
         public async Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm)
         {
-            return  await _context.Recipe
+            return await _context.Recipe
                 .Where(o => EF.Functions.Like(o.Label, searchTerm))
                 .Select(p => new TypeAheadData { Id = p.Id, Name = p.Label })
                 .ToArrayAsync();
 
+        }
+        public async Task<List<RecipeDTO>> GetTop10VitaminCRecipes()
+        {
+            var top10VitaminCList = await _nutritionInfoRepo.GetTop10VitaminC();
+            var foreignKeysToMatch = new List<int>();
+            foreach (var item in top10VitaminCList)
+            {
+                foreignKeysToMatch.Add(item.RecipeId);
+            }
+            var top10VitaminCRecipes = await Task.Run(() => _context.Recipe
+                .Include(o => o.Ingredient)
+                .Include(g => g.HealthLabel)
+                .Include(z => z.Nutritioninfo)
+                .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync());
+
+            var finalTop10 = Mapper.Map<List<RecipeDTO>>(top10VitaminCRecipes);
+
+            return finalTop10;
         }
     }
 }

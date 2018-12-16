@@ -1,0 +1,11 @@
+﻿@model List<RecipeDTO>
+@{
+    ViewData["Title"] = "Top10View";
+}
+
+<h1>Top10View</h1>
+
+@foreach (var item in Model)
+{
+    <div>@item.Id - @item.Label</div>
+}

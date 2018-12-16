@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Models.Entities;
+using RecipeProjectMVC.Repositories;
 using RecipeProjectMVC.Services;
 
 namespace RecipeProjectMVC
@@ -28,7 +29,7 @@ namespace RecipeProjectMVC
             services.AddDbContext<RecipeDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IRecipeService, RecipeService>();
-
+            services.AddTransient<NutritioninfoRepository>();
             services.AddMvc();
         }
 

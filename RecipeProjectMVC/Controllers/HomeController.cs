@@ -34,5 +34,11 @@ namespace RecipeProjectMVC.Controllers
 
             return await _service.GetTypeAheadDataAsync(searchTerm);
         }
+        public async Task<IActionResult> Top10View()
+        {
+            var model = await _service.GetTop10VitaminCRecipes();
+
+            return View(model);
+        }
     }
 }

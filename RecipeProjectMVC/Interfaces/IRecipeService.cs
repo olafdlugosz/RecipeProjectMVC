@@ -14,6 +14,8 @@ namespace RecipeProjectMVC.Services
         Task<HomeViewModel> GetHomeViewModelAsync();
         IQueryable<Recipe> GetRecipesQuery();
         Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm);
-        
+        Task<List<RecipeDTO>> GetTop10VitaminCRecipes();
+
+
     }
 }
