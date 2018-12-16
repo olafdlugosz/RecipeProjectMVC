@@ -37,7 +37,7 @@ namespace RecipeProjectMVC.Controllers
         public async Task<IActionResult> Top10View()
         {
             var model = await _service.GetTop10VitaminCRecipes();
-
+            var modelCalories = await _service.GetTop10CalorieRecipes();
             return View(model);
         }
     }

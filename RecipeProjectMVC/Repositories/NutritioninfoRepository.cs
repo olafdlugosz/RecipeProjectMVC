@@ -18,18 +18,78 @@ namespace RecipeProjectMVC.Repositories
         }
         public async Task<List<Nutritioninfo>> GetTop10VitaminC()
         {
-            var VitminList = await Task.Run(() => _context.Nutritioninfo
-                .Where(p => p.Label == "Vitamin C")
-                .Select(o => new Nutritioninfo
-                { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
-                .OrderByDescending(p => p.Total).ToListAsync());
-            var top10 = new List<Nutritioninfo>();
-            for (int i = 0; i < 10; i++)
-            {
-                top10.Add(VitminList[i]);
-            }
-            return top10;
+            var vitminCList = await GetTop10("Vitamin C");
+
+            return vitminCList;
         }
-        
+        public async Task<List<Nutritioninfo>> GetTop10Protein()
+        {
+            var proteinList = await GetTop10("Protein");
+
+            return proteinList;
+        }
+        public async Task<List<Nutritioninfo>> GetTop10Carbs()
+        {
+            var carbList = await GetTop10("Carbs");
+
+            return carbList;
+        }
+        public async Task<List<Nutritioninfo>> GetTop10Fat()
+        {
+            var fatList = await GetTop10("Fat");
+
+            return fatList;
+        }
+        public async Task<List<Nutritioninfo>> GetTop10Cholesterol()
+        {
+            var cholesterolList = await GetTop10("Cholesterol");
+
+            return cholesterolList;
+        }
+        public async Task<List<Nutritioninfo>> GetLowest10Cholesterol()
+        {
+            var cholesterolList = await GetLowest10("Cholesterol");
+
+            return cholesterolList;
+        }
+        public async Task<List<Nutritioninfo>> GetLowest10Sodium()
+        {
+            var sodiumList = await GetLowest10("Sodium");
+
+            return sodiumList;
+        }
+        public async Task<List<Nutritioninfo>> GetHighest10Sodium()
+        {
+            var sodiumList = await GetTop10("Sodium");
+
+            return sodiumList;
+        }
+        private async Task<List<Nutritioninfo>> GetTop10(string Element)
+        {
+            var elementList = await Task.Run(() => _context.Nutritioninfo
+                    .Where(p => p.Label == Element)
+                    .Select(o => new Nutritioninfo
+                    { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
+                    .OrderByDescending(p => p.Total)
+                    .Take(10)
+                    .ToListAsync());
+
+            return elementList;
+        }
+        private async Task<List<Nutritioninfo>> GetLowest10(string Element)
+        {
+            var elementList = await Task.Run(() => _context.Nutritioninfo
+                    .Where(p => p.Label == Element)
+                    .Select(o => new Nutritioninfo
+                    { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
+                    .OrderBy(p => p.Total)
+                    .Take(10)
+                    .ToListAsync());
+
+            return elementList;
+        }
+
+
+
     }
 }

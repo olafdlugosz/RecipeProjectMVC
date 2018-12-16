@@ -70,21 +70,39 @@ namespace RecipeProjectMVC.Services
         }
         public async Task<List<RecipeDTO>> GetTop10VitaminCRecipes()
         {
+            //Get the top10 Vitamin C values
             var top10VitaminCList = await _nutritionInfoRepo.GetTop10VitaminC();
+            //Create a list with Ids that match Recipe objects
             var foreignKeysToMatch = new List<int>();
             foreach (var item in top10VitaminCList)
             {
                 foreignKeysToMatch.Add(item.RecipeId);
             }
+            //Get the top 10 Recipe Objects from the database
             var top10VitaminCRecipes = await Task.Run(() => _context.Recipe
                 .Include(o => o.Ingredient)
                 .Include(g => g.HealthLabel)
                 .Include(z => z.Nutritioninfo)
                 .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync());
-
+            //map to DTO
             var finalTop10 = Mapper.Map<List<RecipeDTO>>(top10VitaminCRecipes);
 
             return finalTop10;
+        }
+        public async Task<List<RecipeDTO>> GetTop10CalorieRecipes()
+        {
+            var topTenCalories = await Task.Run(() => _context.Recipe
+                .Include(o => o.Ingredient)
+                .Include(g => g.HealthLabel)
+                .Include(z => z.Nutritioninfo)
+                .OrderByDescending(p => p.Calories)
+                .Take(10)
+                .ToListAsync());
+
+            var topTenDTO = Mapper.Map<List<RecipeDTO>>(topTenCalories);
+
+            return topTenDTO;
+
         }
     }
 }

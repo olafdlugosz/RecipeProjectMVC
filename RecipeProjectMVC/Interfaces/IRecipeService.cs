@@ -15,6 +15,7 @@ namespace RecipeProjectMVC.Services
         IQueryable<Recipe> GetRecipesQuery();
         Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm);
         Task<List<RecipeDTO>> GetTop10VitaminCRecipes();
+        Task<List<RecipeDTO>> GetTop10CalorieRecipes();
 
 
     }
