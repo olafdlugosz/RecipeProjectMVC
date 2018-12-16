@@ -38,7 +38,7 @@ namespace RecipeProjectMVC
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            // app.UseAuthentication(); // used for Identity later..
+            // app.UseAuthentication(); // use for Identity later..
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 //cfg.CreateMap<HealthLabel, HealthLabelDTO>();

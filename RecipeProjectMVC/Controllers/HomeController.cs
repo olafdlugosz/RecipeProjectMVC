@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Services;
 
 namespace RecipeProjectMVC.Controllers
@@ -27,6 +28,11 @@ namespace RecipeProjectMVC.Controllers
             if (recipe == null) return NotFound();
 
             return View(recipe);
+        }
+        [Route("Typeahead/{searchTerm}")]
+        public async Task<TypeAheadData[]> GetTypeAheadDataAsync([FromRoute]string searchTerm) {
+
+            return await _service.GetTypeAheadDataAsync(searchTerm);
         }
     }
 }

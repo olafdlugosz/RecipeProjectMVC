@@ -24,27 +24,18 @@ namespace RecipeProjectMVC.Services
             //get lowest and highest Ids from database
             var idLow = _context.Recipe.Min(r => r.Id);
             var idHigh = _context.Recipe.Max(r => r.Id);
+            //Generate list of random Ids
             Random random = new Random();
             var randomIds = new List<int>();
             for (int i = idLow; i <= idHigh; i++)
             {
-                randomIds.Add(i);
+                randomIds.Add(random.Next(idLow, idHigh));
             }
-            //Get all Recipes from database.. I should cache this later.
-            var query =  await Task.Run(() => _context.Recipe.ToList());
-            var listToAdd = new List<Recipe>();
-            for (int i = 0; i < 20; i++)
-            {
-                var randomId = randomIds[random.Next(0, randomIds.Count)];
-                
-                var item = query.Single(r => r.Id == randomId);
-          
-                listToAdd.Add(item);
-                randomIds.Remove(randomId);
+            //Query the database for random id matches
+            var taskList = await Task.Run(()=> _context.Recipe.Where(r => randomIds.Contains(r.Id)).ToListAsync());
 
-            }
             // map 20 random Recipes to the ViewModel
-            model.Recipes = listToAdd;
+            model.Recipes = taskList;
             return  model;
 
         }
@@ -56,7 +47,6 @@ namespace RecipeProjectMVC.Services
 
         public RecipeDTO GetRecípe(int id)
         {
-            //TODO FIX THIS FUCKING QUERY
             var recipeEntity = _context.Recipe
                 .Include(o => o.Ingredient)
                 .Include(g => g.HealthLabel)
@@ -64,10 +54,16 @@ namespace RecipeProjectMVC.Services
                 .Where(p => p.Id == id)
                 .FirstOrDefault();
             var recipe = Mapper.Map<RecipeDTO>(recipeEntity);
-            //recipe.HealthLabel = Mapper.Map<ICollection<HealthLabelDTO>>(source: recipeEntity.HealthLabel.ToList());
-            //recipe.Ingredient = Mapper.Map<ICollection<IngredientDTO>>(source: recipeEntity.Ingredient.ToList());
-            //recipe.Nutritioninfo = Mapper.Map<ICollection<NutritioninfoDTO>>(source: recipeEntity.Nutritioninfo.ToList());
             return recipe;
+        }
+
+        public async Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm)
+        {
+            return  await _context.Recipe
+                .Where(o => EF.Functions.Like(o.Label, searchTerm))
+                .Select(p => new TypeAheadData { Id = p.Id, Name = p.Label })
+                .ToArrayAsync();
+
         }
     }
 }

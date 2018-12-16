@@ -5,18 +5,60 @@
 
 <h1>Details</h1>
 
-<h3>@Model.Label</h3>
-<h4>@Model.TotalWeight</h4>
+<div class="container wow bounceInLeft">
 
-@foreach (var item in Model.HealthLabel)
-{
-    <div>@item.StringValue</div>
-}
-@foreach (var item in Model.Nutritioninfo)
-{
-    <div>@item.Label - @item.Total</div>
-}
-@foreach (var item in Model.Ingredient)
-{
-    <div>@item.Text - @item.Weight</div>
-}
+    <div class="row">
+
+        <div class="col-6 col-md-4">
+            <h2>@Model.Label</h2>
+            <div class="view overlay zoom">
+                <img src="@Model.Image" alt="Card image cap">
+                <label>@Model.Source</label>
+                <h6>Total weight: @String.Format(Model.TotalWeight.Value.ToString("#.##"))g</h6>
+                <h6>Calories: @String.Format(Model.Calories.Value.ToString("#.##"))</h6>
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <h3>Ingredients</h3>
+            @foreach (var item in Model.Ingredient)
+            {
+                <div>@item.Text </div>
+            }
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="th-sm">
+                            Element
+                        </th>
+                        <th class="th-sm">
+                            Amount
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Nutritioninfo)
+                    {
+                        <tr>
+                            <td>
+                                @item.Label
+                            </td>
+                            <td>
+                                @String.Format(item.Total.Value.ToString("#.###"))
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

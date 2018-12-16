@@ -13,5 +13,7 @@ namespace RecipeProjectMVC.Services
         RecipeDTO GetRecípe(int id);
         Task<HomeViewModel> GetHomeViewModelAsync();
         IQueryable<Recipe> GetRecipesQuery();
+        Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm);
+        
     }
 }
