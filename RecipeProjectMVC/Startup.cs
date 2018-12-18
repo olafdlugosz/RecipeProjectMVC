@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeProjectMVC.DTO;
+using RecipeProjectMVC.DTO.ApiDTO;
 using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.Repositories;
 using RecipeProjectMVC.Services;
@@ -42,13 +43,54 @@ namespace RecipeProjectMVC
             // app.UseAuthentication(); // use for Identity later..
             AutoMapper.Mapper.Initialize(cfg =>
             {
-                //cfg.CreateMap<HealthLabel, HealthLabelDTO>();
-                //cfg.CreateMap<Ingredient, IngredientDTO>();
-                //cfg.CreateMap<Nutritioninfo, NutritioninfoDTO>();
+                cfg.CreateMap<RecipeDTO, CaloriesDTO>()
+                .ForMember(dest => dest.Calories, opt => opt.MapFrom(src => Math.Round(src.Calories.Value)));
+                cfg.CreateMap<RecipeDTO, ProteinDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Protein")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()));
+
+                cfg.CreateMap<RecipeDTO, CarbsDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Carbs")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()));
+
+                cfg.CreateMap<RecipeDTO, FatDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Fat")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()));
+
+                cfg.CreateMap<RecipeDTO, SodiumDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Sodium")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()));
+
+                cfg.CreateMap<RecipeDTO, CholesterolDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Cholesterol")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()));
+
+                cfg.CreateMap<RecipeDTO, VitaminCDTO>()
+                    .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
+                    .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Vitamin C")
+                    .Select(x => x.Total.Value)
+                    .FirstOrDefault()));
+
                 cfg.CreateMap<Recipe, RecipeDTO>()
-                .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
-                .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
-                .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
+                    .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
+                    .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
+                    .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
             }
             );
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();

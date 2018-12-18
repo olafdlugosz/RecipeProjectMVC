@@ -72,22 +72,68 @@ namespace RecipeProjectMVC.Services
         {
             //Get the top10 Vitamin C values
             var top10VitaminCList = await _nutritionInfoRepo.GetTop10VitaminC();
-            //Create a list with Ids that match Recipe objects
+            return await MatchForeignKeysWithSourceObjects(top10VitaminCList); 
+        }
+        public async Task<List<RecipeDTO>> GetTop10Protein()
+        {
+            //Get the top10 values
+            var top10ProteinList = await _nutritionInfoRepo.GetTop10Protein();
+            return await MatchForeignKeysWithSourceObjects(top10ProteinList);
+        }
+        public async Task<List<RecipeDTO>> GetTop10Carbs()
+        {
+            //Get the top10 values
+            var top10CarbList = await _nutritionInfoRepo.GetTop10Carbs();
+            return await MatchForeignKeysWithSourceObjects(top10CarbList);
+        }
+        public async Task<List<RecipeDTO>> GetTop10Fat()
+        {
+            //Get the top10 values
+            var top10FatList = await _nutritionInfoRepo.GetTop10Fat();
+            return await MatchForeignKeysWithSourceObjects(top10FatList);
+        }
+        public async Task<List<RecipeDTO>> GetTop10Cholesterol()
+        {
+            //Get the top10 values
+            var top10CholesterolList = await _nutritionInfoRepo.GetTop10Cholesterol();
+            return await MatchForeignKeysWithSourceObjects(top10CholesterolList);
+        }
+        public async Task<List<RecipeDTO>> GetLowest10Cholesterol()
+        {
+            //Get the lowest10 values
+            var lowest10CholesterolList = await _nutritionInfoRepo.GetLowest10Cholesterol();
+            return await MatchForeignKeysWithSourceObjects(lowest10CholesterolList);
+        }
+        public async Task<List<RecipeDTO>> GetLowest10Sodium()
+        {
+            //Get the top10 values
+            var lowest10SodiumList = await _nutritionInfoRepo.GetLowest10Sodium();
+            return await MatchForeignKeysWithSourceObjects(lowest10SodiumList);
+        }
+        public async Task<List<RecipeDTO>> GetTop10Sodium()
+        {
+            //Get the top10 values
+            var top10SodiumList = await _nutritionInfoRepo.GetHighest10Sodium();
+            return await MatchForeignKeysWithSourceObjects(top10SodiumList);
+        }
+        private async Task<List<RecipeDTO>> MatchForeignKeysWithSourceObjects(List<Nutritioninfo> elementInfo)
+        {
+            //Create list of foreign keys
             var foreignKeysToMatch = new List<int>();
-            foreach (var item in top10VitaminCList)
+            foreach (var item in elementInfo)
             {
                 foreignKeysToMatch.Add(item.RecipeId);
             }
             //Get the top 10 Recipe Objects from the database
-            var top10VitaminCRecipes = await Task.Run(() => _context.Recipe
+            var elements = await Task.Run(() => _context.Recipe
                 .Include(o => o.Ingredient)
                 .Include(g => g.HealthLabel)
                 .Include(z => z.Nutritioninfo)
                 .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync());
             //map to DTO
-            var finalTop10 = Mapper.Map<List<RecipeDTO>>(top10VitaminCRecipes);
+            var final10 = Mapper.Map<List<RecipeDTO>>(elements);
 
-            return finalTop10;
+            return final10;
         }
         public async Task<List<RecipeDTO>> GetTop10CalorieRecipes()
         {
@@ -102,6 +148,22 @@ namespace RecipeProjectMVC.Services
             var topTenDTO = Mapper.Map<List<RecipeDTO>>(topTenCalories);
 
             return topTenDTO;
+
+        }
+        public async Task<StatisticsViewModel> GetStatisticsViewModel()
+        {
+            var model = new StatisticsViewModel();
+            model.lowest10Cholesterol = await GetLowest10Cholesterol();
+            model.lowest10Sodium = await GetLowest10Sodium();
+            model.top10Calories = await GetTop10CalorieRecipes();
+            model.top10Carbs = await GetTop10Carbs();
+            model.top10Fat = await GetTop10Fat();
+            model.top10Protein = await GetTop10Protein();
+            model.top10Cholesterol = await GetTop10Cholesterol();
+            model.top10VitaminC = await GetTop10VitaminCRecipes();
+            model.top10Sodium = await GetTop10Sodium();
+
+            return model;
 
         }
     }

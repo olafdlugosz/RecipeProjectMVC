@@ -68,9 +68,9 @@ namespace RecipeProjectMVC.Repositories
         {
             var elementList = await Task.Run(() => _context.Nutritioninfo
                     .Where(p => p.Label == Element)
+                    .OrderByDescending(p => p.Total.Value)
                     .Select(o => new Nutritioninfo
                     { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
-                    .OrderByDescending(p => p.Total)
                     .Take(10)
                     .ToListAsync());
 
@@ -78,11 +78,12 @@ namespace RecipeProjectMVC.Repositories
         }
         private async Task<List<Nutritioninfo>> GetLowest10(string Element)
         {
+            var min = _context.Nutritioninfo.Where(p => p.Label == Element).Min(p => p.Total.Value);
             var elementList = await Task.Run(() => _context.Nutritioninfo
-                    .Where(p => p.Label == Element)
+                    .Where(p => p.Label == Element)                    
+                    .OrderBy(p => p.Total)
                     .Select(o => new Nutritioninfo
                     { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
-                    .OrderBy(p => p.Total)
                     .Take(10)
                     .ToListAsync());
 
