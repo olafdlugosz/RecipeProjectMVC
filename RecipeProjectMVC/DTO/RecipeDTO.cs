@@ -20,9 +20,5 @@ namespace RecipeProjectMVC.DTO
         public virtual ICollection<IngredientDTO> Ingredient { get; set; }
         public virtual ICollection<NutritioninfoDTO> Nutritioninfo { get; set; }
 
-        public RecipeDTO()
-        {
-            //String.Format(TotalWeight.ToString())
-        }
     }
 }

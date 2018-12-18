@@ -23,6 +23,11 @@ namespace RecipeProjectMVC.Services
         Task<List<RecipeDTO>> GetLowest10Sodium();
         Task<List<RecipeDTO>> GetTop10Cholesterol();
         Task<StatisticsViewModel> GetStatisticsViewModel();
+        Task<List<RecipeDTO>> GetLowCarbHighFatRecipes();
+        Task<List<RecipeDTO>> GetHighProteinLowCarb();
+        Task<DietViewModel> GetDietViewModel();
+
+
 
 
     }

@@ -95,5 +95,15 @@ namespace RecipeProjectMVC.Controllers
 
             return Json(cholesterolList);
         }
+        [HttpGet]
+        [Route("Statistics/api/GetDetails/{id}")]
+        public IActionResult GetDetails(int id)
+        {
+            var model = _service.GetRecípe(id);
+          //  var cholesterolList = Mapper.Map<List<CholesterolDTO>>(model).OrderByDescending(x => x.Total);
+
+            return Json(model);
+        }
+
     }
 }

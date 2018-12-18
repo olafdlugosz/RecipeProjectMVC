@@ -91,6 +91,28 @@ namespace RecipeProjectMVC
                     .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
                     .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
                     .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
+
+                cfg.CreateMap<RecipeDTO, LowCarbHighFatDTO>()
+                    .ForMember(dest => dest.Fat, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Fat")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()))
+                    .ForMember(dest => dest.Carb, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Carbs")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()
+                   ));
+
+                cfg.CreateMap<RecipeDTO, HighProteinLowCarbDTO>()
+                    .ForMember(dest => dest.Protein, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Fat")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()))
+                    .ForMember(dest => dest.Carb, opt => opt.MapFrom(src => src.Nutritioninfo
+                    .Where(p => p.Label == "Carbs")
+                    .Select(x => Math.Round(x.Total.Value))
+                    .FirstOrDefault()
+                   ));
             }
             );
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();

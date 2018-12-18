@@ -2,14 +2,14 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<input type="hidden" value='@ViewContext.RouteData.Values["id"]' id="routeDataId"  />
 <h1>Details</h1>
 
 <div class="container wow bounceInLeft">
 
     <div class="row">
 
-        <div class="col-6 col-md-4">
+        <div class=" col-md-4">
             <h2>@Model.Label</h2>
             <div class="view overlay zoom">
                 <img src="@Model.Image" alt="Card image cap">
@@ -21,13 +21,16 @@
                 </a>
             </div>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-md-4">
             <h3>Ingredients</h3>
             @foreach (var item in Model.Ingredient)
             {
                 <div>@item.Text </div>
             }
 
+        </div>
+        <div class="col-md-4">
+            <canvas id="pieChart" style="max-width: 1000px;"></canvas>
         </div>
 
     </div>

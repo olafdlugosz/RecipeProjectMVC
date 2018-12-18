@@ -19,6 +19,7 @@ createDataCholL = async () => {
 };
 let labelListCholL = [];
 let dataListCholL = [];
+
 createLabelsCholL().then(res => {
     labelListCholL = res;
     createDataCholL().then(baz => {

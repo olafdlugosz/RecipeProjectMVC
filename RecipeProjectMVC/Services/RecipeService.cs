@@ -72,7 +72,7 @@ namespace RecipeProjectMVC.Services
         {
             //Get the top10 Vitamin C values
             var top10VitaminCList = await _nutritionInfoRepo.GetTop10VitaminC();
-            return await MatchForeignKeysWithSourceObjects(top10VitaminCList); 
+            return await MatchForeignKeysWithSourceObjects(top10VitaminCList);
         }
         public async Task<List<RecipeDTO>> GetTop10Protein()
         {
@@ -90,6 +90,12 @@ namespace RecipeProjectMVC.Services
         {
             //Get the top10 values
             var top10FatList = await _nutritionInfoRepo.GetTop10Fat();
+            return await MatchForeignKeysWithSourceObjects(top10FatList);
+        }
+        public async Task<List<RecipeDTO>> GetTop30Fat()
+        {
+            //Get the top10 values
+            var top10FatList = await _nutritionInfoRepo.GetTop30Fat();
             return await MatchForeignKeysWithSourceObjects(top10FatList);
         }
         public async Task<List<RecipeDTO>> GetTop10Cholesterol()
@@ -116,6 +122,19 @@ namespace RecipeProjectMVC.Services
             var top10SodiumList = await _nutritionInfoRepo.GetHighest10Sodium();
             return await MatchForeignKeysWithSourceObjects(top10SodiumList);
         }
+        public async Task<List<RecipeDTO>> GetLowestCarbs()
+        {
+            //Get the top10 values
+            var lowestCarbList = await _nutritionInfoRepo.GetLowest10Carbs();
+            return await MatchForeignKeysWithSourceObjects(lowestCarbList);
+        }
+        public async Task<List<RecipeDTO>> GetLowest30Carbs()
+        {
+            //Get the top10 values
+            var lowestCarbList = await _nutritionInfoRepo.GetLowest30Carbs();
+            return await MatchForeignKeysWithSourceObjects(lowestCarbList);
+        }
+
         private async Task<List<RecipeDTO>> MatchForeignKeysWithSourceObjects(List<Nutritioninfo> elementInfo)
         {
             //Create list of foreign keys
@@ -150,6 +169,7 @@ namespace RecipeProjectMVC.Services
             return topTenDTO;
 
         }
+
         public async Task<StatisticsViewModel> GetStatisticsViewModel()
         {
             var model = new StatisticsViewModel();
@@ -165,6 +185,50 @@ namespace RecipeProjectMVC.Services
 
             return model;
 
+        }
+        public async Task<DietViewModel> GetDietViewModel()
+        {
+            var model = new DietViewModel();
+            model.LCHFRecipes = await GetLowCarbHighFatRecipes();
+            model.HighProteinLowCarbRecipes = await GetHighProteinLowCarb();
+
+            return model;
+        }
+        public async Task<List<RecipeDTO>> GetLowCarbHighFatRecipes()
+        {
+            var lowestCarbs = await GetLowest30Carbs();
+            var highestFat = await GetTop30Fat();
+            var lowestCarbsTotals = new List<double?>();
+            foreach (var item in lowestCarbs)
+            {
+                foreach (var element in item.Nutritioninfo)
+                {
+                    if (element.Label == "Carbs")
+                    {
+                        lowestCarbsTotals.Add(element.Total.Value);
+                    }
+                }
+            }
+            var maxTotalCarb = lowestCarbsTotals.Max();
+            var LCHFmodel = new List<RecipeDTO>();
+            foreach (var item in highestFat)
+            {
+                foreach (var element in item.Nutritioninfo)
+                {
+                    if (element.Label == "Fat" && element.Total.Value < maxTotalCarb)
+                    {
+                        LCHFmodel.Add(item);
+                    }
+                }
+            }
+            return LCHFmodel;
+
+        }
+        public async Task<List<RecipeDTO>> GetHighProteinLowCarb()
+        {
+            var model = await _nutritionInfoRepo.GetHighProteinLowCarb();
+
+            return await MatchForeignKeysWithSourceObjects(model);
         }
     }
 }

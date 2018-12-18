@@ -8,7 +8,7 @@ using RecipeProjectMVC.Services;
 
 namespace RecipeProjectMVC.Controllers
 {
-    [Route("[controller]/[action]/{id?}")]
+   // [Route("[controller]/[action]/{id?}")]
     public class HomeController : Controller
     {
         private readonly IRecipeService _service;
@@ -39,6 +39,15 @@ namespace RecipeProjectMVC.Controllers
             var model = await _service.GetTop10VitaminCRecipes();
             var modelCalories = await _service.GetTop10CalorieRecipes();
             return View(model);
+        }
+        [HttpGet]
+       [Route("Home/Details/GetDetails/{id}")]
+        public IActionResult GetDetails(int id)
+        {
+            var model = _service.GetRecípe(id);
+            //  var cholesterolList = Mapper.Map<List<CholesterolDTO>>(model).OrderByDescending(x => x.Total);
+
+            return Json(model);
         }
     }
 }
