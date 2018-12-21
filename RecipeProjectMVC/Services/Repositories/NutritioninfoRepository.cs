@@ -84,26 +84,26 @@ namespace RecipeProjectMVC.Repositories
         }
         private async Task<List<Nutritioninfo>> GetTop10(string Element)
         {
-            var elementList = await Task.Run(() => _context.Nutritioninfo
+            var elementList = await _context.Nutritioninfo.TagWith("This is Olafs special query!")
                     .Where(p => p.Label == Element)
-                    .OrderByDescending(p => p.Total.Value)
                     .Select(o => new Nutritioninfo
                     { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
+                    .OrderByDescending(p => p.Total.Value)
                     .Take(10)
-                    .ToListAsync());
+                    .ToListAsync();
 
             return elementList;
         }
         private async Task<List<Nutritioninfo>> GetLowest10(string Element)
         {
             //var min = _context.Nutritioninfo.Where(p => p.Label == Element).Min(p => p.Total.Value);
-            var elementList = await Task.Run(() => _context.Nutritioninfo
-                    .Where(p => p.Label == Element)                    
+            var elementList = await _context.Nutritioninfo
+                    .Where(p => p.Label == Element)
                     .OrderBy(p => p.Total)
                     .Select(o => new Nutritioninfo
                     { Label = o.Label, Total = o.Total, RecipeId = o.RecipeId })
                     .Take(10)
-                    .ToListAsync());
+                    .ToListAsync();
 
             return elementList;
         }
@@ -121,7 +121,7 @@ namespace RecipeProjectMVC.Repositories
         }
         private async Task<List<Nutritioninfo>> GetLowest30(string Element)
         {
-         //   var min = _context.Nutritioninfo.Where(p => p.Label == Element).Min(p => p.Total.Value);
+            //   var min = _context.Nutritioninfo.Where(p => p.Label == Element).Min(p => p.Total.Value);
             var elementList = await Task.Run(() => _context.Nutritioninfo
                     .Where(p => p.Label == Element)
                     .OrderBy(p => p.Total)
@@ -141,9 +141,45 @@ namespace RecipeProjectMVC.Repositories
             {
                 highProteinRecipeIds.Add(item.RecipeId);
             }
-            var highProteinLowCarbRecipeIds =  lowCarb.Where(p => highProteinRecipeIds.Contains(p.RecipeId)).ToList();
+            var highProteinLowCarbRecipeIds = lowCarb.Where(p => highProteinRecipeIds.Contains(p.RecipeId)).ToList();
 
             return highProteinLowCarbRecipeIds;
+        }
+        public async Task<List<RecipeDTO>> GetTop10RecipeDTO(string Element)
+        {
+            var elementList = _context.Recipe.TagWith("This is Pontus special query!")
+                    .Where(r => r.Nutritioninfo.Select(n => n.Label).Contains(Element))
+                    .Select(o => new RecipeDTO
+                    {
+                        Label = o.Label,
+                        Calories = o.Calories,
+                        Id = o.Id,
+                        Image = o.Image,
+                        IsAdded = o.IsAdded,
+                        Source = o.Source,
+                        Url = o.Url,
+                        TotalWeight = o.TotalWeight,
+                        HealthLabel = o.HealthLabel.Select(h => new HealthLabelDTO
+                        {
+                            StringValue = h.StringValue
+                        }).ToList(),
+                        Ingredient = o.Ingredient.Select(i => new IngredientDTO
+                        {
+                            Text = i.Text,
+                            Weight = i.Weight
+                        }).ToList(),
+                        Nutritioninfo = o.Nutritioninfo.Select(n => new NutritioninfoDTO
+                        {
+                            Label = n.Label,
+                            Total = n.Total
+                        }).ToList()
+                    })
+                    .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == Element).Total)
+                    .Take(10)
+                    .ToList();
+
+            await Task.Delay(0);
+            return elementList;
         }
 
 

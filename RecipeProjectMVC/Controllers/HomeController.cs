@@ -4,21 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RecipeProjectMVC.DTO;
+using RecipeProjectMVC.Repositories;
 using RecipeProjectMVC.Services;
 
 namespace RecipeProjectMVC.Controllers
 {
-   // [Route("[controller]/[action]/{id?}")]
+    // [Route("[controller]/[action]/{id?}")]
     public class HomeController : Controller
     {
         private readonly IRecipeService _service;
-        public HomeController(IRecipeService service)
+
+        private readonly NutritioninfoRepository _repository;
+
+        public HomeController(IRecipeService service, NutritioninfoRepository repository)
         {
             _service = service;
+            _repository = repository;
         }
-        
+
         public async Task<IActionResult> Index()
         {
+            await _repository.GetTop10RecipeDTO("Fat");
             var model = await _service.GetHomeViewModelAsync();
             return View(model);
         }
@@ -30,7 +36,8 @@ namespace RecipeProjectMVC.Controllers
             return View(recipe);
         }
         [Route("Typeahead/{searchTerm}")]
-        public async Task<TypeAheadData[]> GetTypeAheadDataAsync([FromRoute]string searchTerm) {
+        public async Task<TypeAheadData[]> GetTypeAheadDataAsync([FromRoute]string searchTerm)
+        {
 
             return await _service.GetTypeAheadDataAsync(searchTerm);
         }
@@ -41,7 +48,7 @@ namespace RecipeProjectMVC.Controllers
             return View(model);
         }
         [HttpGet]
-       [Route("Home/Details/GetDetails/{id}")]
+        [Route("Home/Details/GetDetails/{id}")]
         public IActionResult GetDetails(int id)
         {
             var model = _service.GetRecípe(id);

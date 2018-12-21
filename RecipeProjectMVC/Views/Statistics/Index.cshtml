@@ -6,18 +6,19 @@
 <h1>Statistics</h1>
 <div class="class="col- col-sm-6 col-lg-8""> 
     <div class="row wow bounceInRight">
-        <div class="col-6 col-md-4">
-            <canvas id="topCaloriesChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-6 col-md-2">
-            <h3>Top 10 Calorie Recipes</h3>
-            @foreach (var item in Model.top10Calories)
-            {
-                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                    <div>@item.Label  - @Math.Round(item.Calories.Value)cal</div>
-                </a>
-            }
-        </div>
+
+            <div class="col-6 col-md-4">
+                <canvas id="topCaloriesChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-6 col-md-2">
+                <h3>Top 10 Calorie Recipes</h3>
+                @foreach (var item in Model.top10Calories)
+                {
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                        <div>@item.Label  - @Math.Round(item.Calories.Value)cal</div>
+                    </a>
+                }
+            </div>
         <div class="col-6 col-md-4">
             <canvas id="topVitaminCChart" style="max-width: 800px;"></canvas>
         </div>

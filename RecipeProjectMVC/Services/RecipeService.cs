@@ -144,16 +144,38 @@ namespace RecipeProjectMVC.Services
                 foreignKeysToMatch.Add(item.RecipeId);
             }
             //Get the top 10 Recipe Objects from the database
-            var elements = await Task.Run(() => _context.Recipe
+            var elements = await _context.Recipe
                 .Include(o => o.Ingredient)
                 .Include(g => g.HealthLabel)
                 .Include(z => z.Nutritioninfo)
-                .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync());
+                .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync();
+
+            //s var orderedElement = elements.Where
             //map to DTO
             var final10 = Mapper.Map<List<RecipeDTO>>(elements);
 
             return final10;
         }
+
+        //private async Task<List<RecipeForStatisticsDTO>> MatchForeignKeysWithSourceObjectsForStatistics(List<Nutritioninfo> elementInfo)
+        //{
+        //    //Create list of foreign keys
+        //    var foreignKeysToMatch = new List<int>();
+        //    foreach (var item in elementInfo)
+        //    {
+        //        foreignKeysToMatch.Add(item.RecipeId);
+        //    }
+        //    //Get the top 10 Recipe Objects from the database
+        //    var elements = await _context.Recipe
+        //        .Include(o => o.Ingredient)
+        //        .Include(g => g.HealthLabel)
+        //        .Include(z => z.Nutritioninfo)
+        //        .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync();
+        //    //map to DTO
+        //    var final10 = Mapper.Map<List<RecipeForStatisticsDTO>>(elements);
+
+        //    return final10;
+        //}
         public async Task<List<RecipeDTO>> GetTop10CalorieRecipes()
         {
             var topTenCalories = await Task.Run(() => _context.Recipe
@@ -194,6 +216,7 @@ namespace RecipeProjectMVC.Services
 
             return model;
         }
+        //TODO: Debug this once more...
         public async Task<List<RecipeDTO>> GetLowCarbHighFatRecipes()
         {
             var lowestCarbs = await GetLowest30Carbs();

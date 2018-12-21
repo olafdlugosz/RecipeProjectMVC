@@ -17,7 +17,7 @@ namespace RecipeProjectMVC
     {
         public static void Main(string[] args)
         {
-            //var host = CreateWebHostBuilder(args).Build();
+            var host = CreateWebHostBuilder(args).Build();
 
             //using (var scope = host.Services.CreateScope())
             //{
@@ -33,8 +33,8 @@ namespace RecipeProjectMVC
             //    }
             //}
 
-            //host.Run();
-             CreateWebHostBuilder(args).Build().Run();
+            host.Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
