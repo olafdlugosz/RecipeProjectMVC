@@ -20,29 +20,35 @@ namespace RecipeProjectMVC.Services
             _context = recipeDbContext;
             _nutritionInfoRepo = repository;
         }
-
+        //TODO: There's a bug. list contains 20 ids but taskList returns only 15 items.
         public async Task<HomeViewModel> GetHomeViewModelAsync()
         {
             var model = new HomeViewModel();
             //get lowest and highest Ids from database
             var idLow = _context.Recipe.Min(r => r.Id);
             var idHigh = _context.Recipe.Max(r => r.Id);
-            //Generate list of random Ids
+           // Generate list of random Ids
             Random random = new Random();
             var randomIds = new List<int>();
-            for (int i = idLow; i <= idHigh; i++)
+            while (randomIds.Count < 20)
             {
-                randomIds.Add(random.Next(idLow, idHigh));
+
+                var randomid = random.Next(idLow, idHigh);
+                if (!randomIds.Contains(randomid))
+                {
+                    randomIds.Add(randomid);
+                }
+           
             }
+            
             //Query the database for random id matches
-            var taskList = await Task.Run(() => _context.Recipe.Where(r => randomIds.Contains(r.Id)).ToListAsync());
+            var taskList = await _context.Recipe.Where(r => randomIds.Contains(r.Id)).ToListAsync();
 
             // map 20 random Recipes to the ViewModel
             model.Recipes = taskList;
             return model;
 
         }
-
         public IQueryable<Recipe> GetRecipesQuery()
         {
             throw new NotImplementedException();
@@ -216,7 +222,7 @@ namespace RecipeProjectMVC.Services
 
             return model;
         }
-        //TODO: Debug this once more...
+        //TODO: Debug this once more...Use .Intersect
         public async Task<List<RecipeDTO>> GetLowCarbHighFatRecipes()
         {
             var lowestCarbs = await GetLowest30Carbs();

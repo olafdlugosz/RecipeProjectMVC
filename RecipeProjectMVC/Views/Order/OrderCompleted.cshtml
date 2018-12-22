@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OrderCompleted</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="~/css/style.min.css" rel="stylesheet">
+    <link href="~/css/CustomStyle.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Central Modal Fluid Success-->
+    <div class="modal fade container" id="orderCompletedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    
+         aria-hidden="true">
+        <div class="modal-dialog modal-fluid modal-notify modal-success" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <p class="heading lead"></p>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+   <h1>@TempData["Message"].ToString()</h1>
+                    </div>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+
+                </div>
+        
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <script>
+
+    </script>
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+        showModal = () => {
+            $('#orderCompletedModal').modal('show');
+        }
+        showModal();
+                setTimeout(function () {
+            window.location.href = '/Home/Index';
+        }, 2000);
+    </script>
+</body>
+</html>

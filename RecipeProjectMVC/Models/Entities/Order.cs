@@ -10,5 +10,6 @@ namespace RecipeProjectMVC.Models.Entities
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public DateTime CreationDate { get; set; }
+        public bool? IsShipped { get; set; }
     }
 }

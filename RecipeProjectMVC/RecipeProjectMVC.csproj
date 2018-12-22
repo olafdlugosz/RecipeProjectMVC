@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Dashboard\dashboard.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -14,6 +18,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Dashboard\Dashboard.cshtml" />
+    <None Include="wwwroot\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\img\lightbox\default-skin.svg" />
+    <None Include="wwwroot\img\svg\arrow_left.svg" />
+    <None Include="wwwroot\img\svg\arrow_right.svg" />
+    <None Include="wwwroot\js\addons\datatables.js" />
+    <None Include="wwwroot\js\addons\datatables.min.js" />
+    <None Include="wwwroot\js\bootstrap.js" />
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\js\mdb.js" />
+    <None Include="wwwroot\js\mdb.min.js" />
+    <None Include="wwwroot\js\modules\chart.js" />
+    <None Include="wwwroot\js\modules\default-file-input.js" />
+    <None Include="wwwroot\js\modules\enhanced-modals.js" />
+    <None Include="wwwroot\js\modules\forms-free.js" />
+    <None Include="wwwroot\js\modules\jquery.easing.js" />
+    <None Include="wwwroot\js\modules\scrolling-navbar.js" />
+    <None Include="wwwroot\js\modules\velocity.js" />
+    <None Include="wwwroot\js\modules\velocity.min.js" />
+    <None Include="wwwroot\js\modules\waves.js" />
+    <None Include="wwwroot\js\modules\wow.js" />
+    <None Include="wwwroot\js\popper.min.js" />
     <None Include="wwwroot\lib\mdbootstrap\css\mdb.css" />
     <None Include="wwwroot\lib\mdbootstrap\css\mdb.lite.css" />
     <None Include="wwwroot\lib\mdbootstrap\css\mdb.lite.min.css" />
@@ -51,6 +82,44 @@
     <None Include="wwwroot\lib\mdbootstrap\img\svg\arrow_right.svg" />
     <None Include="wwwroot\lib\mdbootstrap\js\mdb.js" />
     <None Include="wwwroot\lib\mdbootstrap\js\mdb.min.js" />
+    <None Include="wwwroot\scss\addons\_datatables.scss" />
+    <None Include="wwwroot\scss\core\bootstrap\_functions.scss" />
+    <None Include="wwwroot\scss\core\bootstrap\_variables.scss" />
+    <None Include="wwwroot\scss\core\_colors.scss" />
+    <None Include="wwwroot\scss\core\_global.scss" />
+    <None Include="wwwroot\scss\core\_helpers.scss" />
+    <None Include="wwwroot\scss\core\_masks.scss" />
+    <None Include="wwwroot\scss\core\_mixins.scss" />
+    <None Include="wwwroot\scss\core\_typography.scss" />
+    <None Include="wwwroot\scss\core\_variables.scss" />
+    <None Include="wwwroot\scss\core\_waves.scss" />
+    <None Include="wwwroot\scss\free\modules\animations-extended\animations-extended.scss" />
+    <None Include="wwwroot\scss\free\modules\animations-extended\_module.scss" />
+    <None Include="wwwroot\scss\free\_animations-basic.scss" />
+    <None Include="wwwroot\scss\free\_badges.scss" />
+    <None Include="wwwroot\scss\free\_buttons.scss" />
+    <None Include="wwwroot\scss\free\_cards.scss" />
+    <None Include="wwwroot\scss\free\_carousels.scss" />
+    <None Include="wwwroot\scss\free\_depreciated.scss" />
+    <None Include="wwwroot\scss\free\_dropdowns.scss" />
+    <None Include="wwwroot\scss\free\_footers.scss" />
+    <None Include="wwwroot\scss\free\_forms.scss" />
+    <None Include="wwwroot\scss\free\_input-group.scss" />
+    <None Include="wwwroot\scss\free\_list-group.scss" />
+    <None Include="wwwroot\scss\free\_loader.scss" />
+    <None Include="wwwroot\scss\free\_modals.scss" />
+    <None Include="wwwroot\scss\free\_msc.scss" />
+    <None Include="wwwroot\scss\free\_navbars.scss" />
+    <None Include="wwwroot\scss\free\_pagination.scss" />
+    <None Include="wwwroot\scss\free\_steppers.scss" />
+    <None Include="wwwroot\scss\free\_switch.scss" />
+    <None Include="wwwroot\scss\free\_tables.scss" />
+    <None Include="wwwroot\scss\mdb.lite.scss" />
+    <None Include="wwwroot\scss\mdb.scss" />
+    <None Include="wwwroot\scss\style.scss" />
+    <None Include="wwwroot\scss\_custom-skin.scss" />
+    <None Include="wwwroot\scss\_custom-styles.scss" />
+    <None Include="wwwroot\scss\_custom-variables.scss" />
   </ItemGroup>
 
 </Project>

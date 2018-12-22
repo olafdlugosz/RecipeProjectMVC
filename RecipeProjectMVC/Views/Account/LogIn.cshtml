@@ -10,57 +10,89 @@
     <meta name="viewport" content="width=device-width" />
     <title>LogIn</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link href="~/css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="~/css/style.min.css" rel="stylesheet">
+    <link href="~/css/CustomStyle.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">asdas</div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4" style="max-width: 200px;">sas</div>
-            <div class="col-md-4" style="max-width: 200px;">ss</div>
-            <div class="col-md-4" style="max-width: 200px;">ss</div>
-        </div>
-        <div class="row">
-            <div class="col-md-4" style="max-width: 400px;"></div>
-            <div class="col-md-4" style="max-width: 400px;">
-                <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-center border border-light p-5">
+    <!--Modal Form Login with Avatar Demo-->
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog cascading-modal modal-avatar modal-body" role="document">
+            <!--Content-->
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header">
+                    <img src="~/Photos/Berlin.PNG" class="rounded-circle img-responsive"
+                         alt="Avatar photo">
+                </div>
+                <!--Body-->
+                <div class="modal-body text-center mb-md-auto">
+                    <h5 class="mt-1 mb-2">Admin</h5>
+                    <form asp-controller="Account" asp-action="Login" id="logInForm" asp-route-returnUrl="@Model.ReturnUrl" class="text-center border border-light p-5">
 
-                    <p class="h4 mb-4">Sign in</p>
+                        <p class="h4 mb-4">Sign in</p>
 
-                    <!-- UserName -->
-                    <input input asp-for="Username" type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username">
-                    <span asp-validation-for="Username"></span>
-                    <!-- Password -->
-                    <input asp-for="Password" type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-                    <span asp-validation-for="Password"></span>
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <!-- Remember me -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                        <!-- UserName -->
+                        <input input asp-for="Username" type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username">
+                        <span asp-validation-for="Username"></span>
+                        <!-- Password -->
+                        <input asp-for="Password" type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                        <span asp-validation-for="Password"></span>
+                        <div class="d-flex justify-content-around">
+                            <div>
+                                <!-- Remember me -->
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+                                    <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                                </div>
+                            </div>
+                            <div>
+                                <!-- Forgot password -->
+                                <a href="">Forgot password?</a>
                             </div>
                         </div>
-                        <div>
-                            <!-- Forgot password -->
-                            <a href="">Forgot password?</a>
-                        </div>
-                    </div>
 
-                    <!-- Sign in button -->
-                    <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+                        <!-- Sign in button -->
+                        <button class="btn btn-info btn-block my-4" type="submit" >Sign in</button>
 
-                </form>
-                <!-- Default form login -->
-
-                <div class="col-md-4" style="max-width: 400px;"></div>
+                    </form>
+                </div>
             </div>
+            <!--/.Content-->
         </div>
     </div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--Modal Form Login with Avatar Demo-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        new WOW().init();
+        showModal = () => {
+            $("#signInModal").modal('show');
+        }
+        redirectToHome = () => {
+            window.location.href = '/Home/Index';
+        }
+        showModal();
+        validationEvent = () => {
+            $('#logInForm').bind('invalid', (event) => {
+                console.log(event.type, "invalid");
+            })
+        }
+        validationEvent();
+    </script>
 </body>
 </html>

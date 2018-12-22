@@ -4,7 +4,7 @@
 }
 
 <h1>Index</h1>
-<div class="container">
+<div class="container" style="margin-top: 50px;">
     <div class="row">
         @foreach (var item in Model.Recipes)
         {
@@ -33,7 +33,7 @@
                               That's one tastey dish!
                             </p>
                             <!-- Button -->
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary float-left my-2">Details</a>
+                            <a asp-controller="Order" asp-action="Create" asp-route-id="@item.Id" class="btn btn-primary float-left my-2">Order</a>
 
                         </div>
                     </div>

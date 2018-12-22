@@ -4,8 +4,9 @@
 }
 
 <h1>Statistics</h1>
-<div class="class="col- col-sm-6 col-lg-8""> 
-    <div class="row wow bounceInRight">
+<div style="margin-top: 50px;">
+    <div class="class=" col- col-sm-6 col-lg-8"">
+        <div class="row wow bounceInRight">
 
             <div class="col-6 col-md-4">
                 <canvas id="topCaloriesChart" style="max-width: 800px;"></canvas>
@@ -19,144 +20,145 @@
                     </a>
                 }
             </div>
-        <div class="col-6 col-md-4">
-            <canvas id="topVitaminCChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-6 col-md-2">
-            <h3>Top 10 Vitamin C Recipes</h3>
-            @foreach (var item in Model.top10VitaminC)
-            {
-                @foreach (var element in item.Nutritioninfo)
+            <div class="col-6 col-md-4">
+                <canvas id="topVitaminCChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-6 col-md-2">
+                <h3>Top 10 Vitamin C Recipes</h3>
+                @foreach (var item in Model.top10VitaminC)
                 {
-                    @if (element.Label == "Vitamin C")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
-                        </a>
+                        @if (element.Label == "Vitamin C")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
+                            </a>
 
+                        }
                     }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <div class="row wow bounceInLeft">
-        <div class="col-8 col-md-4">
-            <canvas id="topProtein" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-4 col-md-2">
-            <h3>Top 10 Protein Recipes</h3>
-            @foreach (var item in Model.top10Protein)
-            {
-                @foreach (var element in item.Nutritioninfo)
+        <div class="row wow bounceInLeft">
+            <div class="col-8 col-md-4">
+                <canvas id="topProtein" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-4 col-md-2">
+                <h3>Top 10 Protein Recipes</h3>
+                @foreach (var item in Model.top10Protein)
                 {
-                    @if (element.Label == "Protein")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
-                        </a>
+                        @if (element.Label == "Protein")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
+                            </a>
 
+                        }
                     }
                 }
-            }
-        </div>
-        <div class="col-6 col-md-4">
-            <canvas id="topCholesterolChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-6 col-md-2">
-            <h3>Top 10 Cholesterol Recipes</h3>
-            @foreach (var item in Model.top10Cholesterol)
-            {
-                @foreach (var element in item.Nutritioninfo)
+            </div>
+            <div class="col-6 col-md-4">
+                <canvas id="topCholesterolChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-6 col-md-2">
+                <h3>Top 10 Cholesterol Recipes</h3>
+                @foreach (var item in Model.top10Cholesterol)
                 {
-                    @if (element.Label == "Cholesterol")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)mg/dL</div>
-                        </a>
+                        @if (element.Label == "Cholesterol")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)mg/dL</div>
+                            </a>
 
+                        }
                     }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <div class="row wow bounceInRight">
-        <div class="col-8 col-md-4">
-            <canvas id="topCarbsChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-4 col-md-2">
-            <h3>Top 10 Carbohydrate Recipes</h3>
-            @foreach (var item in Model.top10Carbs)
-            {
-                @foreach (var element in item.Nutritioninfo)
+        <div class="row wow bounceInRight">
+            <div class="col-8 col-md-4">
+                <canvas id="topCarbsChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-4 col-md-2">
+                <h3>Top 10 Carbohydrate Recipes</h3>
+                @foreach (var item in Model.top10Carbs)
                 {
-                    @if (element.Label == "Carbs")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
-                        </a>
+                        @if (element.Label == "Carbs")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
+                            </a>
+                        }
                     }
                 }
-            }
-        </div>
-        <div class="col-6 col-md-4">
-            <canvas id="lowCholesterolChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-6 col-md-2">
-            <h3>Lowest in Cholesterol Recipes</h3>
-            @foreach (var item in Model.lowest10Cholesterol)
-            {
-                @foreach (var element in item.Nutritioninfo)
+            </div>
+            <div class="col-6 col-md-4">
+                <canvas id="lowCholesterolChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-6 col-md-2">
+                <h3>Lowest in Cholesterol Recipes</h3>
+                @foreach (var item in Model.lowest10Cholesterol)
                 {
-                    @if (element.Label == "Cholesterol")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)mg/dL</div>
-                        </a>
+                        @if (element.Label == "Cholesterol")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)mg/dL</div>
+                            </a>
 
+                        }
                     }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <div class="row wow bounceInLeft">
-        <div class="col-8 col-md-4">
-            <canvas id="topFatChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-4 col-md-2">
-            <h3>Top 10 Fat Recipes</h3>
-            @foreach (var item in Model.top10Fat)
-            {
-                @foreach (var element in item.Nutritioninfo)
+        <div class="row wow bounceInLeft">
+            <div class="col-8 col-md-4">
+                <canvas id="topFatChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-4 col-md-2">
+                <h3>Top 10 Fat Recipes</h3>
+                @foreach (var item in Model.top10Fat)
                 {
-                    @if (element.Label == "Fat")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
-                        </a>
+                        @if (element.Label == "Fat")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)g</div>
+                            </a>
+                        }
                     }
                 }
-            }
-        </div>
-        <div class="col-6 col-md-4">
-            <canvas id="lowSodiumChart" style="max-width: 800px;"></canvas>
-        </div>
-        <div class="col-6 col-md-2">
-            <h3>Lowest in Sodium Recipes</h3>
-            @foreach (var item in Model.lowest10Sodium)
-            {
-                @foreach (var element in item.Nutritioninfo)
+            </div>
+            <div class="col-6 col-md-4">
+                <canvas id="lowSodiumChart" style="max-width: 800px;"></canvas>
+            </div>
+            <div class="col-6 col-md-2">
+                <h3>Lowest in Sodium Recipes</h3>
+                @foreach (var item in Model.lowest10Sodium)
                 {
-                    @if (element.Label == "Sodium")
+                    @foreach (var element in item.Nutritioninfo)
                     {
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                            <div>@item.Label  - @Math.Round(element.Total.Value)mg/portion</div>
-                        </a>
+                        @if (element.Label == "Sodium")
+                        {
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                                <div>@item.Label  - @Math.Round(element.Total.Value)mg/portion</div>
+                            </a>
 
+                        }
                     }
                 }
-            }
-        </div>
+            </div>
 
+        </div>
     </div>
 </div>
 

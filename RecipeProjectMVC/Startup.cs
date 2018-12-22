@@ -15,6 +15,7 @@ using RecipeProjectMVC.DTO.ApiDTO;
 using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.Repositories;
 using RecipeProjectMVC.Services;
+using RecipeProjectMVC.Services.Repositories;
 
 namespace RecipeProjectMVC
 {
@@ -29,6 +30,7 @@ namespace RecipeProjectMVC
      //   For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 public void ConfigureServices(IServiceCollection services)
         {
+            
 
             services.AddDbContext<RecipeDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -47,12 +49,15 @@ public void ConfigureServices(IServiceCollection services)
             services.AddTransient<AccountService>();
             services.AddTransient<IRecipeService, RecipeService>();
             services.AddTransient<NutritioninfoRepository>();
+            services.AddTransient<OrderRepository>();
+            services.AddSession();
             services.AddMvc();
         }
 
        // This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSession();
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
