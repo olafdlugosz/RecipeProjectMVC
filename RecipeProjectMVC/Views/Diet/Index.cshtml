@@ -4,33 +4,54 @@
 }
 
 <h1>Diets</h1>
-<div style="margin-top: 50px;">
+<div style="margin-top: 50px; margin-left: 30px">
     <div class="row">
-        <div class="col-sm-8" style="max-width: 1000px;">
-            <canvas id="LCHFlineChart"></canvas>
+        <div class="col-sm-8" style="max-width: 1100px;">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="LCHFlineChart"></canvas>
+                </div>
+            </div>
         </div>
         <div class="col-sm-4">
-            <h3>Low Carb High Fat Recipes</h3>
-            @foreach (var item in Model.LCHFRecipes)
-            {
-                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                    <div>@item.Label</div>
-                </a>
-            }
+            <div class="card">
+                <div class="card-body">
+
+                    <h3>Low Carb High Fat Recipes</h3>
+                    @foreach (var item in Model.LCHFRecipes)
+                    {
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                            <div>@item.Label</div>
+                        </a>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-8" style="max-width: 1000px;">
-            <canvas id="HPLClineChart"></canvas>
+</div>
+<div class="row" style="margin-top: 15px; margin-left: 15px" ">
+    <div class="col-sm-8" style="max-width: 1100px;">
+        <div class="card">
+            <div class="card-body">
+
+                <canvas id="HPLClineChart"></canvas>
+            </div>
         </div>
-        <div class="col-sm-4">
-            <h3>High Protein Low Carb Recipes</h3>
-            @foreach (var item in Model.HighProteinLowCarbRecipes)
-            {
-                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
-                    <div>@item.Label</div>
-                </a>
-            }
+    </div>
+    <div class="col-sm-4">
+
+        <div class="card">
+            <div class="card-body">
+
+                <h3>High Protein Low Carb Recipes</h3>
+                @foreach (var item in Model.HighProteinLowCarbRecipes)
+                {
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id">
+                        <div>@item.Label</div>
+                    </a>
+                }
+            </div>
         </div>
+
     </div>
 </div>
