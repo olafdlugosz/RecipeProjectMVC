@@ -222,35 +222,12 @@ namespace RecipeProjectMVC.Services
 
             return model;
         }
-        //TODO: Debug this once more...Use .Intersect
+       
         public async Task<List<RecipeDTO>> GetLowCarbHighFatRecipes()
         {
-            var lowestCarbs = await GetLowest30Carbs();
-            var highestFat = await GetTop30Fat();
-            var lowestCarbsTotals = new List<double?>();
-            foreach (var item in lowestCarbs)
-            {
-                foreach (var element in item.Nutritioninfo)
-                {
-                    if (element.Label == "Carbs")
-                    {
-                        lowestCarbsTotals.Add(element.Total.Value);
-                    }
-                }
-            }
-            var maxTotalCarb = lowestCarbsTotals.Max();
-            var LCHFmodel = new List<RecipeDTO>();
-            foreach (var item in highestFat)
-            {
-                foreach (var element in item.Nutritioninfo)
-                {
-                    if (element.Label == "Fat" && element.Total.Value < maxTotalCarb)
-                    {
-                        LCHFmodel.Add(item);
-                    }
-                }
-            }
-            return LCHFmodel;
+
+            var lowCarbHighFatRecipeIds = await _nutritionInfoRepo.GetLowCarbHighFat();
+            return await MatchForeignKeysWithSourceObjects(lowCarbHighFatRecipeIds);
 
         }
         public async Task<List<RecipeDTO>> GetHighProteinLowCarb()

@@ -183,5 +183,32 @@ namespace RecipeProjectMVC.Repositories
         }
 
 
+        public async Task<List<Nutritioninfo>> GetLowCarbHighFat()
+        {
+            var lowCarb = await GetLowest30Carbs();
+            var highFat = await GetTop10Fat();
+
+            var LowCarbHighFatRecipeIds = highFat.Intersect(lowCarb, new NutritionInfoRecipeIdComparer()).ToList();
+
+            return LowCarbHighFatRecipeIds;
+        }
+        //Custom Comparison Class for the Queries using Interect.
+        private class NutritionInfoRecipeIdComparer : IEqualityComparer<Nutritioninfo>
+        {
+            public bool Equals(Nutritioninfo x, Nutritioninfo y)
+            {
+                if (x.RecipeId == y.RecipeId)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public int GetHashCode(Nutritioninfo obj)
+            {
+                return obj.RecipeId.GetHashCode();
+            }
+        }
+
     }
 }
