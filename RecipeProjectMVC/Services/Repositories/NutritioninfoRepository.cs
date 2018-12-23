@@ -121,7 +121,7 @@ namespace RecipeProjectMVC.Repositories
         }
         private async Task<List<Nutritioninfo>> GetLowest30(string Element)
         {
-            //   var min = _context.Nutritioninfo.Where(p => p.Label == Element).Min(p => p.Total.Value);
+            //TODO: ask Oscar about the Task.Run();
             var elementList = await Task.Run(() => _context.Nutritioninfo
                     .Where(p => p.Label == Element)
                     .OrderBy(p => p.Total)
@@ -136,12 +136,7 @@ namespace RecipeProjectMVC.Repositories
         {
             var highProtein = await GetTop10Protein();
             var lowCarb = await GetLowest30Carbs();
-            var highProteinRecipeIds = new List<int>();
-            foreach (var item in highProtein)
-            {
-                highProteinRecipeIds.Add(item.RecipeId);
-            }
-            var highProteinLowCarbRecipeIds = lowCarb.Where(p => highProteinRecipeIds.Contains(p.RecipeId)).ToList();
+            var highProteinLowCarbRecipeIds = highProtein.Intersect(lowCarb, new NutritionInfoRecipeIdComparer()).ToList();
 
             return highProteinLowCarbRecipeIds;
         }
