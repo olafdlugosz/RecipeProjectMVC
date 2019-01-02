@@ -140,6 +140,7 @@ namespace RecipeProjectMVC.Repositories
 
             return highProteinLowCarbRecipeIds;
         }
+        //PONTUS SPECIAL!
         public async Task<List<RecipeDTO>> GetTop10RecipeDTO(string Element)
         {
             var elementList = _context.Recipe.TagWith("This is Pontus special query!")
