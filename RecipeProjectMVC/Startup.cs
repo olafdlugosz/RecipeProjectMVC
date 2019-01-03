@@ -126,7 +126,7 @@ namespace RecipeProjectMVC
 
                 cfg.CreateMap<RecipeDTO, HighProteinLowCarbDTO>()
                     .ForMember(dest => dest.Protein, opt => opt.MapFrom(src => src.Nutritioninfo
-                    .Where(p => p.Label == "Fat")
+                    .Where(p => p.Label == "Protein")
                     .Select(x => Math.Round(x.Total.Value))
                     .FirstOrDefault()))
                     .ForMember(dest => dest.Carb, opt => opt.MapFrom(src => src.Nutritioninfo

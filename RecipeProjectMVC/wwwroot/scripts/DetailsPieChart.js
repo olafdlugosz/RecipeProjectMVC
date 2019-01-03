@@ -6,13 +6,13 @@
     let data = await response.json();
     for (var i = 0; i < data.nutritioninfo.length; i++) {
         if (data.nutritioninfo[i].label === "Protein") {
-            dataList.push(data.nutritioninfo[i].total);
+            dataList[0] = data.nutritioninfo[i].total;
         }
         if (data.nutritioninfo[i].label === "Carbs") {
-            dataList.push(data.nutritioninfo[i].total);
+            dataList[1] = data.nutritioninfo[i].total;
         }
         if (data.nutritioninfo[i].label === "Fat") {
-            dataList.push(data.nutritioninfo[i].total);
+            dataList[2] = data.nutritioninfo[i].total;
         }
     }
     console.log("this is piechartDataList: ", dataList);

@@ -5,63 +5,65 @@
 <input type="hidden" value='@ViewContext.RouteData.Values["id"]' id="routeDataId"  />
 <h1>Details</h1>
 
-<div class="container wow bounceInLeft" style="margin-top: 50px;">
+<div class="container wow bounceInLeft card" style="margin-top: 50px;">
+    <div style="margin-top: 30px; margin-left: 15px; ">
+        <div class="row">
 
-    <div class="row">
-
-        <div class=" col-md-4">
-            <h2>@Model.Label</h2>
-            <div class="view overlay zoom">
-                <img src="@Model.Image" alt="Card image cap">
-                <label>@Model.Source</label>
-                <h6>Total weight: @String.Format(Model.TotalWeight.Value.ToString("#.##"))g</h6>
-                <h6>Calories: @String.Format(Model.Calories.Value.ToString("#.##"))</h6>
-                <a>
-                    <div class="mask rgba-white-slight"></div>
-                </a>
+            <div class=" col-md-4">
+                <h2>@Model.Label</h2>
+                <div class="view overlay zoom">
+                    <img src="@Model.Image" alt="Card image cap">
+                    <label>@Model.Source</label>
+                    <h6>Total weight: @String.Format(Model.TotalWeight.Value.ToString("#.##"))g</h6>
+                    <h6>Calories: @String.Format(Model.Calories.Value.ToString("#.##"))</h6>
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <h3>Ingredients</h3>
-            @foreach (var item in Model.Ingredient)
-            {
-                <div>@item.Text </div>
-            }
+            <div class="col-md-4">
+                <h3>Ingredients</h3>
+                @foreach (var item in Model.Ingredient)
+                {
+                    <div>@item.Text </div>
+                }
 
+            </div>
+            <div class="col-md-4">
+                <canvas id="pieChart" style="max-width: 1000px;"></canvas>
+            </div>
+            <!-- Button -->
+            <a asp-controller="Order" asp-action="Create" asp-route-id="@ViewContext.RouteData.Values["id"]" class="btn btn-primary float-left my-2">Order</a>
         </div>
-        <div class="col-md-4">
-            <canvas id="pieChart" style="max-width: 1000px;"></canvas>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col">
-            <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th class="th-sm">
-                            Element
-                        </th>
-                        <th class="th-sm">
-                            Amount
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.Nutritioninfo)
-                    {
+        <div class="row">
+            <div class="col">
+                <table id="dtMaterialDesignExample" class="table table-striped" cellspacing="0" width="100%">
+                    <thead>
                         <tr>
-                            <td>
-                                @item.Label
-                            </td>
-                            <td>
-                                @String.Format(item.Total.Value.ToString("#.###"))
-                            </td>
+                            <th class="th-sm">
+                                Element
+                            </th>
+                            <th class="th-sm">
+                                Amount
+                            </th>
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Nutritioninfo)
+                        {
+                            <tr>
+                                <td>
+                                    @item.Label
+                                </td>
+                                <td>
+                                    @String.Format(item.Total.Value.ToString("#.###"))
+                                </td>
+                            </tr>
+                        }
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
