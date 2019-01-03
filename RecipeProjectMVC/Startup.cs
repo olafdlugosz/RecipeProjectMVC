@@ -105,13 +105,15 @@ namespace RecipeProjectMVC
                     .ForMember(dest => dest.Label, opt => opt.MapFrom(src => src.Label))
                     .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Nutritioninfo
                     .Where(p => p.Label == "Vitamin C")
-                    .Select(x => x.Total.Value)
+                    .Select(x => Math.Round(x.Total.Value))
                     .FirstOrDefault()));
 
                 cfg.CreateMap<Recipe, RecipeDTO>()
                     .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
                     .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
                     .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
+
+            
 
                 cfg.CreateMap<RecipeDTO, LowCarbHighFatDTO>()
                     .ForMember(dest => dest.Fat, opt => opt.MapFrom(src => src.Nutritioninfo

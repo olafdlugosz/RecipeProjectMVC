@@ -163,25 +163,6 @@ namespace RecipeProjectMVC.Services
             return final10;
         }
 
-        //private async Task<List<RecipeForStatisticsDTO>> MatchForeignKeysWithSourceObjectsForStatistics(List<Nutritioninfo> elementInfo)
-        //{
-        //    //Create list of foreign keys
-        //    var foreignKeysToMatch = new List<int>();
-        //    foreach (var item in elementInfo)
-        //    {
-        //        foreignKeysToMatch.Add(item.RecipeId);
-        //    }
-        //    //Get the top 10 Recipe Objects from the database
-        //    var elements = await _context.Recipe
-        //        .Include(o => o.Ingredient)
-        //        .Include(g => g.HealthLabel)
-        //        .Include(z => z.Nutritioninfo)
-        //        .Where(p => foreignKeysToMatch.Contains(p.Id)).ToListAsync();
-        //    //map to DTO
-        //    var final10 = Mapper.Map<List<RecipeForStatisticsDTO>>(elements);
-
-        //    return final10;
-        //}
         public async Task<List<RecipeDTO>> GetTop10CalorieRecipes()
         {
             var topTenCalories = await Task.Run(() => _context.Recipe
@@ -201,19 +182,76 @@ namespace RecipeProjectMVC.Services
         public async Task<StatisticsViewModel> GetStatisticsViewModel()
         {
             var model = new StatisticsViewModel();
-            model.lowest10Cholesterol = await GetLowest10Cholesterol();
-            model.lowest10Sodium = await GetLowest10Sodium();
-            model.top10Calories = await GetTop10CalorieRecipes();
-            model.top10Carbs = await GetTop10Carbs();
-            model.top10Fat = await GetTop10Fat();
-            model.top10Protein = await GetTop10Protein();
-            model.top10Cholesterol = await GetTop10Cholesterol();
-            model.top10VitaminC = await GetTop10VitaminCRecipes();
-            model.top10Sodium = await GetTop10Sodium();
 
+            var lowest10CholesterolToOrderBy = await GetLowest10Cholesterol();
+            var sortedLowest10Cholesterol =
+                lowest10CholesterolToOrderBy
+                .OrderBy(p => p.Nutritioninfo.Single(x => x.Label == "Cholesterol")
+                .Total)
+                .ToList();
+            model.lowest10Cholesterol = sortedLowest10Cholesterol;
+
+            var lowest10SodiumToOrderBy = await GetLowest10Sodium();
+            var sortedLowest10Sodium =
+                lowest10SodiumToOrderBy
+                .OrderBy(p => p.Nutritioninfo.Single(x => x.Label == "Sodium")
+                .Total)
+                .ToList();
+            model.lowest10Sodium = sortedLowest10Sodium;
+
+            var top10CarbsToOrderByDescending = await GetTop10Carbs();
+            var sortedTop10Carbs =
+                top10CarbsToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Carbs")
+                .Total)
+                .ToList();
+            model.top10Carbs = sortedTop10Carbs;
+
+            var top10FatToOrderByDescending = await GetTop10Fat();
+            var sortedTop10Fat =
+                top10FatToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Fat")
+                .Total)
+                .ToList();
+            model.top10Fat = sortedTop10Fat;
+
+            var top10ProteinToOrderByDescending = await GetTop10Protein();
+            var sortedTop10Protein =
+                top10ProteinToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Protein")
+                .Total)
+                .ToList();
+            model.top10Protein = sortedTop10Protein;
+
+            var top10CholesterolToOrderByDescending = await GetTop10Cholesterol();
+            var sortedTop10Cholesterol =
+                top10CholesterolToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Cholesterol")
+                .Total)
+                .ToList();
+            model.top10Cholesterol = sortedTop10Cholesterol;
+
+            var top10VitaminCToOrderByDescending = await GetTop10VitaminCRecipes();
+            var sortedTop10VitaminC =
+                top10VitaminCToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Vitamin C")
+                .Total)
+                .ToList();
+            model.top10VitaminC = sortedTop10VitaminC;
+
+            var top10SodiumToOrderByDescending = await GetTop10Sodium();
+            var sortedTop10Sodium =
+                top10SodiumToOrderByDescending
+                .OrderByDescending(p => p.Nutritioninfo.Single(x => x.Label == "Sodium")
+                .Total)
+                .ToList();
+            model.top10Sodium = sortedTop10Sodium;
+
+            model.top10Calories = await GetTop10CalorieRecipes();
             return model;
 
         }
+
         public async Task<DietViewModel> GetDietViewModel()
         {
             var model = new DietViewModel();
