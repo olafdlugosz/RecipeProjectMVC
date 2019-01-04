@@ -132,14 +132,6 @@ namespace RecipeProjectMVC.Repositories
 
             return elementList;
         }
-        public async Task<List<Nutritioninfo>> GetHighProteinLowCarb()
-        {
-            var highProtein = await GetTop10Protein();
-            var lowCarb = await GetLowest30Carbs();
-            var highProteinLowCarbRecipeIds = highProtein.Intersect(lowCarb, new NutritionInfoRecipeIdComparer()).ToList();
-
-            return highProteinLowCarbRecipeIds;
-        }
         //PONTUS SPECIAL!
         public async Task<List<RecipeDTO>> GetTop10RecipeDTO(string Element)
         {
@@ -178,6 +170,14 @@ namespace RecipeProjectMVC.Repositories
             return elementList;
         }
 
+        public async Task<List<Nutritioninfo>> GetHighProteinLowCarb()
+        {
+            var highProtein = await GetTop10Protein();
+            var lowCarb = await GetLowest30Carbs();
+            var highProteinLowCarbRecipeIds = highProtein.Intersect(lowCarb, new NutritionInfoRecipeIdComparer()).ToList();
+
+            return highProteinLowCarbRecipeIds;
+        }
 
         public async Task<List<Nutritioninfo>> GetLowCarbHighFat()
         {

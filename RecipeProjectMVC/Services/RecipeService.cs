@@ -150,7 +150,7 @@ namespace RecipeProjectMVC.Services
                 foreignKeysToMatch.Add(item.RecipeId);
             }
             //Get the top 10 Recipe Objects from the database
-            var elements = await _context.Recipe
+            var elements = await _context.Recipe.TagWith("This is Olafs special query to match keys!")
                 .Include(o => o.Ingredient)
                 .Include(g => g.HealthLabel)
                 .Include(z => z.Nutritioninfo)
