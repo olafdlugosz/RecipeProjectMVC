@@ -55,12 +55,19 @@ namespace RecipeProjectMVC
         }
 
         // This method gets called by the runtime.Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration conf)
         {
-            app.UseSession();
             app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+            app.UseMvcWithDefaultRoute();
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync(conf["test"]);
+
+            //});
+            //return;
+            app.UseSession();
             app.UseStaticFiles();
+            app.UseStatusCodePages();
             app.UseAuthentication(); // Identity
             AutoMapper.Mapper.Initialize(cfg =>
             {
@@ -112,7 +119,7 @@ namespace RecipeProjectMVC
                     .ForMember(dest => dest.Nutritioninfo, opt => opt.MapFrom(src => src.Nutritioninfo.ToList()))
                     .ForMember(dest => dest.Ingredient, opt => opt.MapFrom(src => src.Ingredient.ToList()))
                     .ForMember(dest => dest.HealthLabel, opt => opt.MapFrom(src => src.HealthLabel.ToList()));
-            
+
                 cfg.CreateMap<RecipeDTO, LowCarbHighFatDTO>()
                     .ForMember(dest => dest.Fat, opt => opt.MapFrom(src => src.Nutritioninfo
                     .Where(p => p.Label == "Fat")
@@ -137,7 +144,6 @@ namespace RecipeProjectMVC
             }
             );
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();
-            app.UseMvcWithDefaultRoute();
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute(
