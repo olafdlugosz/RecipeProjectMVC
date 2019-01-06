@@ -12,6 +12,10 @@ namespace RecipeProjectMVC.ViewModels
         public List<Order> Orders { get; set; }
         public List<Order> ShippedOrders { get; set; }
         public List<DashboardRecipeDTO> Top5OrderedRecipes { get; set; }
+        public string Alert { get; set; }
+        public DateTime? TimeOfIncident { get; set; }
+
 
     }
+
 }

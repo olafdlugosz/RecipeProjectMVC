@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using RecipeProjectMVC.Services;
 using RecipeProjectMVC.Services.Repositories;
 
@@ -13,13 +14,16 @@ namespace RecipeProjectMVC.Controllers
         private readonly OrderRepository _orderRepo;
         private readonly OrderDeploymentService _deploymentService;
         private readonly DashBoardInformationService _dashboardInfoService;
+        private readonly IMemoryCache _cache;
         public DashboardController(OrderRepository orderRepository,
             OrderDeploymentService deploymentService,
-            DashBoardInformationService dashBoardInformationService)
+            DashBoardInformationService dashBoardInformationService,
+            IMemoryCache cache)
         {
             _orderRepo = orderRepository;
             _deploymentService = deploymentService;
             _dashboardInfoService = dashBoardInformationService;
+            _cache = cache;
         }
         public async Task<IActionResult> Dashboard()
         {

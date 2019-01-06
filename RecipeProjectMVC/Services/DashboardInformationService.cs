@@ -9,6 +9,7 @@ using RecipeProjectMVC.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using RecipeProjectMVC.Repositories;
 using RecipeProjectMVC.Services.Repositories;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace RecipeProjectMVC.Services
 {
@@ -16,10 +17,12 @@ namespace RecipeProjectMVC.Services
     {
         private readonly IRecipeService _recipeService;
         private readonly OrderRepository _orderRepo;
-        public DashBoardInformationService(IRecipeService recipeService, OrderRepository orderRepository)
+        private readonly IMemoryCache _cache;
+        public DashBoardInformationService(IRecipeService recipeService, OrderRepository orderRepository, IMemoryCache cache)
         {
             _recipeService = recipeService;
             _orderRepo = orderRepository;
+            _cache = cache;
         }
 
         public async Task<DashboardInfoVM> GetDashBoardInfoVM()
@@ -28,6 +31,14 @@ namespace RecipeProjectMVC.Services
             model.Orders = await _orderRepo.GetUnShippedOrders();
             model.ShippedOrders = await _orderRepo.GetShippedOrders();
             model.Top5OrderedRecipes =  _recipeService.GetTop5SoldRecipes();
+            if(_cache.Get("Alert") != null)
+            {
+                var warning = _cache.Get<Alert>("Alert");
+                model.Alert = warning.TypeOfIncident;
+                model.TimeOfIncident = warning.Sighting;
+
+            }
+            else { model.Alert = "No Issues today"; };
             return model;
         }
 

@@ -62,6 +62,12 @@ namespace RecipeProjectMVC.Services.Repositories
                 .ToDictionary(y => y.Key, y => y.Count()).OrderByDescending(x => x.Value).Take(5);
             return top5;
         }
+        public void RecordAlert(Alert alert)
+        {
+        
+            _context.Alert.Add(alert);
+            _context.SaveChanges();
+        }
 
     }
 }

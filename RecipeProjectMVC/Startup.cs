@@ -53,6 +53,7 @@ namespace RecipeProjectMVC
             services.AddTransient<OrderDeploymentService>();
             services.AddTransient<DashBoardInformationService>();
             services.AddSession();
+            services.AddMemoryCache();
             services.AddMvc();
         }
 

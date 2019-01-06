@@ -15,6 +15,7 @@ namespace RecipeProjectMVC.Models.Entities
         {
         }
 
+        public virtual DbSet<Alert> Alert { get; set; }
         public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
@@ -40,6 +41,13 @@ namespace RecipeProjectMVC.Models.Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.0-rtm-35687");
+
+            modelBuilder.Entity<Alert>(entity =>
+            {
+                entity.Property(e => e.Sighting).HasColumnType("datetime");
+
+                entity.Property(e => e.TypeOfIncident).HasMaxLength(50);
+            });
 
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
