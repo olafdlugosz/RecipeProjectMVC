@@ -31,6 +31,7 @@ namespace RecipeProjectMVC.Services
             model.Orders = await _orderRepo.GetUnShippedOrders();
             model.ShippedOrders = await _orderRepo.GetShippedOrders();
             model.Top5OrderedRecipes =  _recipeService.GetTop5SoldRecipes();
+            model.Top5Customers = _orderRepo.GetTop5Customers();
             if(_cache.Get("Alert") != null)
             {
                 var warning = _cache.Get<Alert>("Alert");

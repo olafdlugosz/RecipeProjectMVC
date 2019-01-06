@@ -45,7 +45,7 @@
         <!-- Sidebar -->
         <div class="sidebar-fixed position-fixed lighten-3">
             <a class="logo-wrapper waves-effect">
-                <img src="https://mdbootstrap.com/img/logo/mdb-email.png" class="img-fluid" alt="">
+                <img src="http://lotsoffood.org/wp-content/uploads/2013/10/logoLarge.jpg" class="view overlay zoom img-fluid z-depth-1 rounded-circle" alt="">
             </a>
             <div class="list-group list-group-flush">
                 <a href="#" class="list-group-item active waves-effect">
@@ -256,34 +256,36 @@
                             <table class="table table-hover">
                                 <!-- Table head -->
                                 <thead class="blue lighten-4">
+                                    <theader><h4>Top 5 Customers</h4></theader>
                                     <tr>
                                         <th>#</th>
-                                        <th>Lorem</th>
-                                        <th>Ipsum</th>
-                                        <th>Dolor</th>
+                                        <th>CustomerEmail</th>
+                                        <th># of Orders</th>
+
                                     </tr>
                                 </thead>
                                 <!-- Table head -->
                                 <!-- Table body -->
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 3</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Cell 4</td>
-                                        <td>Cell 5</td>
-                                        <td>Cell 6</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Cell 7</td>
-                                        <td>Cell 8</td>
-                                        <td>Cell 9</td>
-                                    </tr>
+                                    @{
+                                        int counter2 = 0;
+                                        foreach (KeyValuePair<string, int> item in Model.Top5Customers)
+                                        {
+                                            counter2++;
+                                            <tr>
+
+                                                <th scope="row">@counter2.ToString()</th>
+                                                <td>@item.Key</td>
+                                                <td>@item.Value</td>
+
+                                            </tr>
+
+                                        }
+
+                                        
+                                        
+                                    }
+
                                 </tbody>
                                 <!-- Table body -->
                             </table>

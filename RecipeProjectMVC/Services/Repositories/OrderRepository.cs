@@ -62,6 +62,14 @@ namespace RecipeProjectMVC.Services.Repositories
                 .ToDictionary(y => y.Key, y => y.Count()).OrderByDescending(x => x.Value).Take(5);
             return top5;
         }
+        public IEnumerable<KeyValuePair<string, int>> GetTop5Customers()
+        {
+            var top5 = _context.Order.
+                GroupBy(x => x.CustomerEmail)
+                .ToDictionary(y => y.Key, y => y.Count()).OrderByDescending(x => x.Value).Take(5);
+            return top5;
+
+        }
         public void RecordAlert(Alert alert)
         {
         
