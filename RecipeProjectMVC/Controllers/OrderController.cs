@@ -13,10 +13,12 @@ namespace RecipeProjectMVC.Controllers
     {
         private readonly IRecipeService _service;
         private readonly OrderRepository _orderRepository;
-        public OrderController(IRecipeService service, OrderRepository orderRepository)
+        private readonly OrderDeploymentService _deploymentService;
+        public OrderController(IRecipeService service, OrderRepository orderRepository, OrderDeploymentService orderDeploymentService)
         {
             _service = service;
             _orderRepository = orderRepository;
+            _deploymentService = orderDeploymentService;
         }
         [HttpGet]
         [Route("Order/Create/{id}")]
@@ -28,7 +30,7 @@ namespace RecipeProjectMVC.Controllers
         }
         [HttpPost]
         [Route("Order/Create/{id?}")]
-        public IActionResult Create(OrderViewModel orderViewModel, int id)
+        public IActionResult Create(OrderCreateViewModel orderViewModel, int id)
         {
             if (!ModelState.IsValid && ModelState.Any(x => x.Value.AttemptedValue.ToString().ToLower() == "adrian"))
             {
@@ -42,6 +44,13 @@ namespace RecipeProjectMVC.Controllers
                 return RedirectToAction(nameof(OrderCompleted));
             }
             return View(orderViewModel);
+        }
+        [HttpPost]
+        [Route("Order/Deploy/{id?}")]
+        public IActionResult DeployOrder(int id)
+        {
+            _deploymentService.DeployOrder(id);
+            return Ok();
         }
         public IActionResult OrderCompleted()
         {

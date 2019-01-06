@@ -24,7 +24,7 @@ namespace RecipeProjectMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await _repository.GetTop10RecipeDTO("Fat");
+            await _repository.GetTop10RecipeDTO("Fat"); //Pontus special
             var model = await _service.GetHomeViewModelAsync();
             return View(model);
         }

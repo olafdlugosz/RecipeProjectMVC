@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model OrderViewModel
+<!DOCTYPE html>
 <html lang="en">
 
 
@@ -97,7 +98,38 @@
                     <div class="card">
                         <!--Card content-->
                         <div class="card-body">
-                            <canvas id="myChart"></canvas>
+                            <!-- Table  -->
+                            <table class="table table-hover">
+                                <!-- Table head -->
+                                <thead class="blue-grey lighten-4">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Customer Name</th>
+                                        <th>Customer Email</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <!-- Table head -->
+                                <!-- Table body -->
+                                <tbody>
+                                    @foreach (var item in Model.Orders)
+                                    {
+
+                                    <tr>
+                                        <th scope="row" >#</th>
+                                        <td>@item.CustomerName</td>
+                                        <td>@item.CustomerEmail</td>
+                                        <td>@item.CreationDate</td>
+                                        <td ><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="showModal(@item.Id);">Dispatch</button></td>
+                                    </tr>
+
+                                    }
+
+                                </tbody>
+                                <!-- Table body -->
+                            </table>
+                            <!-- Table  -->
                         </div>
                     </div>
                     <!--/.Card-->
@@ -139,7 +171,7 @@
                                 </a>
                                 <a class="list-group-item list-group-item-action waves-effect">
                                     Orders
-                                    <span class="badge badge-primary badge-pill pull-right">14</span>
+                                    <span class="badge badge-primary badge-pill pull-right">@Model.Orders.Count</span>
                                 </a>
                                 <a class="list-group-item list-group-item-action waves-effect">
                                     Issues
@@ -639,7 +671,7 @@
                             </div>
                             <!--Modal: Login / Register Form Demo-->
                             <!-- Central Modal Large Info-->
-                            <div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            <div class="modal fade" id="centralModalLGInfoDemo"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
                                     <!--Content-->
@@ -655,28 +687,20 @@
                                         <div class="modal-body">
                                             <div class="text-center">
                                                 <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit
-                                                    iusto nulla
-                                                    aperiam blanditiis ad consequatur in dolores culpa, dignissimos,
-                                                    eius
-                                                    non possimus fugiat. Esse ratione fuga, enim, ab officiis totam.
-                                                </p>
                                             </div>
-                                            <img src="https://mdbootstrap.com/wp-content/uploads/2016/11/admin-dashboard-bootstrap.jpg" alt="Material Design for Bootstrap - dashboard"
-                                                 class="img-fluid">
+                                            <img src="https://www.nutritionsociety.org/sites/default/files/styles/page_main/public/images/paper-of-the-month/food_bowls_medium_resize.jpg?itok=-mPG_CxK" alt="Material Design for Bootstrap - dashboard"
+                                                 class="img-fluid align-self-stretch">
+                                            <div class="text-center">
+                                                <h1>Order has been sent!</h1>
+                                                <a role="button" class="btn btn-success" onclick="location.reload();">
+                                                    Refresh Orders.
+                                                    <i class="far fa-gem ml-1"></i>
+                                                </a>
+                                            </div>
+
                                         </div>
                                         <!--Footer-->
-                                        <div class="modal-footer">
-                                            <a role="button" class="btn btn-info">
-                                                Get it now
-                                                <i class="far fa-gem ml-1"></i>
-                                            </a>
-                                            <a role="button" class="btn btn-outline-info waves-effect" data-dismiss="modal">
-                                                No,
-                                                thanks
-                                            </a>
-                                        </div>
+
                                     </div>
                                     <!--/.Content-->
                                 </div>
@@ -1091,55 +1115,22 @@
     <footer class="page-footer text-center font-small primary-color-dark darken-2 mt-4 wow fadeIn">
         <!--Call to action-->
         <div class="pt-4">
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank"
-               role="button">
-                Download
-                MDB
-                <i class="fas fa-download ml-2"></i>
-            </a>
-            <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank" role="button">
-                Start
-                free tutorial
-                <i class="fas fa-graduation-cap ml-2"></i>
-            </a>
+
         </div>
         <!--/.Call to action-->
         <hr class="my-4">
         <!-- Social icons -->
         <div class="pb-4">
-            <a href="https://www.facebook.com/mdbootstrap" target="_blank">
-                <i class="fab fa-facebook-f mr-3"></i>
-            </a>
-            <a href="https://twitter.com/MDBootstrap" target="_blank">
-                <i class="fab fa-twitter mr-3"></i>
-            </a>
-            <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
-                <i class="fab fa-youtube mr-3"></i>
-            </a>
-            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-                <i class="fab fa-google-plus mr-3"></i>
-            </a>
-            <a href="https://dribbble.com/mdbootstrap" target="_blank">
-                <i class="fab fa-dribbble mr-3"></i>
-            </a>
-            <a href="https://pinterest.com/mdbootstrap" target="_blank">
-                <i class="fab fa-pinterest mr-3"></i>
-            </a>
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-                <i class="fab fa-github mr-3"></i>
-            </a>
-            <a href="http://codepen.io/mdbootstrap/" target="_blank">
-                <i class="fab fa-codepen mr-3"></i>
-            </a>
+            
         </div>
         <!-- Social icons -->
         <!--Copyright-->
         <div class="footer-copyright py-3">
             © 2018 Copyright:
-            <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+            <a href="#!" target="_blank"> Recipe Project Lernia </a>
         </div>
         <!--/.Copyright-->
-    </footer>
+    </footer> 
     <!--/.Footer-->
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -1158,44 +1149,7 @@
     </script>
     <!-- Charts -->
     <script>
-        // Line
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+       
 
         //pie
         var ctxP = document.getElementById("pieChart").getContext('2d');
@@ -1307,11 +1261,11 @@
     <script>
         // Regular map
         function regular_map() {
-            var var_location = new google.maps.LatLng(40.725118, -73.997699);
+            var var_location = new google.maps.LatLng(59.314419, 18.023881);
 
             var var_mapoptions = {
                 center: var_location,
-                zoom: 14
+                zoom: 20
             };
 
             var var_map = new google.maps.Map(document.getElementById("map-container"),
@@ -1320,7 +1274,7 @@
             var var_marker = new google.maps.Marker({
                 position: var_location,
                 map: var_map,
-                title: "New York"
+                title: "Adrian"
             });
         }
 
@@ -1358,6 +1312,12 @@
             }
         });
 
+        showModal = (id) => {
+            $("#centralModalLGInfoDemo").modal('show');
+            fetch(`Order/Deploy/${id}`);
+            
+        }
+    
     </script>
 </body>
 </html>
