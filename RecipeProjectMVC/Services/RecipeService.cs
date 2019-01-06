@@ -8,6 +8,7 @@ using RecipeProjectMVC.Models.Entities;
 using RecipeProjectMVC.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using RecipeProjectMVC.Repositories;
+using RecipeProjectMVC.Services.Repositories;
 
 namespace RecipeProjectMVC.Services
 {
@@ -15,12 +16,14 @@ namespace RecipeProjectMVC.Services
     {
         private readonly RecipeDbContext _context;
         private readonly NutritioninfoRepository _nutritionInfoRepo;
-        public RecipeService(RecipeDbContext recipeDbContext, NutritioninfoRepository repository)
+        private readonly OrderRepository _orderRepo;
+        public RecipeService(RecipeDbContext recipeDbContext,
+            NutritioninfoRepository repository, OrderRepository orderRepository)
         {
             _context = recipeDbContext;
             _nutritionInfoRepo = repository;
+            _orderRepo = orderRepository;
         }
-        //TODO: There's a bug. list contains 20 ids but taskList returns only 15 items.
         public async Task<HomeViewModel> GetHomeViewModelAsync()
         {
             var model = new HomeViewModel();
@@ -49,9 +52,19 @@ namespace RecipeProjectMVC.Services
             return model;
 
         }
-        public IQueryable<Recipe> GetRecipesQuery()
+        public List<DashboardRecipeDTO> GetTop5SoldRecipes()
         {
-            throw new NotImplementedException();
+            var top5 = _orderRepo.GetTop5SoldRecipeIds();
+            var dashboardrecipes = new List<DashboardRecipeDTO>();
+            foreach (var item in top5)
+            {
+                var dashboardRecipe = new DashboardRecipeDTO();
+                dashboardRecipe.RecipeId = item.Key;
+                dashboardRecipe.Count = item.Value;
+                dashboardRecipe.Label =  _context.Recipe.Where(r => r.Id == item.Key).Select(r => r.Label).FirstOrDefault();
+                dashboardrecipes.Add(dashboardRecipe);
+            }
+            return dashboardrecipes;
         }
 
         public RecipeDTO GetRecípe(int id)

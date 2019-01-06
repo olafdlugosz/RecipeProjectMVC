@@ -12,7 +12,6 @@ namespace RecipeProjectMVC.Services
     {
         RecipeDTO GetRecípe(int id);
         Task<HomeViewModel> GetHomeViewModelAsync();
-        IQueryable<Recipe> GetRecipesQuery();
         Task<TypeAheadData[]> GetTypeAheadDataAsync(string searchTerm);
         Task<List<RecipeDTO>> GetTop10VitaminCRecipes();
         Task<List<RecipeDTO>> GetTop10CalorieRecipes();
@@ -26,6 +25,7 @@ namespace RecipeProjectMVC.Services
         Task<List<RecipeDTO>> GetLowCarbHighFatRecipes();
         Task<List<RecipeDTO>> GetHighProteinLowCarb();
         Task<DietViewModel> GetDietViewModel();
+        List<DashboardRecipeDTO> GetTop5SoldRecipes();
 
 
 

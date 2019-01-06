@@ -12,14 +12,19 @@ namespace RecipeProjectMVC.Controllers
     {
         private readonly OrderRepository _orderRepo;
         private readonly OrderDeploymentService _deploymentService;
-        public DashboardController(OrderRepository orderRepository, OrderDeploymentService deploymentService)
+        private readonly DashBoardInformationService _dashboardInfoService;
+        public DashboardController(OrderRepository orderRepository,
+            OrderDeploymentService deploymentService,
+            DashBoardInformationService dashBoardInformationService)
         {
             _orderRepo = orderRepository;
             _deploymentService = deploymentService;
+            _dashboardInfoService = dashBoardInformationService;
         }
         public async Task<IActionResult> Dashboard()
         {
-            var model = await _orderRepo.GetOrderViewModel();
+           
+            var model = await _dashboardInfoService.GetDashBoardInfoVM();
             return View(model);
         }
        // [HttpPost]

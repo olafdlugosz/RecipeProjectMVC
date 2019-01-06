@@ -42,13 +42,7 @@ namespace RecipeProjectMVC.Services.Repositories
 
             return orders;
         }
-        public async Task<OrderViewModel> GetOrderViewModel()
-        {
-            var model = new OrderViewModel();
-            model.Orders = await GetUnShippedOrders();
-            model.ShippedOrders = await GetShippedOrders();
-            return model;
-        }
+
         public Order GetOrderById(int id)
         {
             var order = _context.Order.Where(o => o.Id == id).FirstOrDefault();
@@ -60,6 +54,13 @@ namespace RecipeProjectMVC.Services.Repositories
             var order = GetOrderById(id);
             order.IsShipped = true;
             _context.SaveChanges();
+        }
+        public IEnumerable<KeyValuePair<int, int>> GetTop5SoldRecipeIds()
+        {
+            var top5 = _context.Order
+                .GroupBy(x => x.ItemId)
+                .ToDictionary(y => y.Key, y => y.Count()).OrderByDescending(x => x.Value).Take(5);
+            return top5;
         }
 
     }

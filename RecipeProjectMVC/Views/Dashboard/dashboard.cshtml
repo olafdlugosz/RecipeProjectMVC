@@ -1,4 +1,4 @@
-﻿@model OrderViewModel
+﻿@model DashboardInfoVM
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +41,7 @@
 
     <!--Main Navigation-->
     <header>
-       
+
         <!-- Sidebar -->
         <div class="sidebar-fixed position-fixed lighten-3">
             <a class="logo-wrapper waves-effect">
@@ -116,13 +116,13 @@
                                     @foreach (var item in Model.Orders)
                                     {
 
-                                    <tr>
-                                        <th scope="row" >#</th>
-                                        <td>@item.CustomerName</td>
-                                        <td>@item.CustomerEmail</td>
-                                        <td>@item.CreationDate</td>
-                                        <td ><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="showModal(@item.Id);">Dispatch</button></td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row">#</th>
+                                            <td>@item.CustomerName</td>
+                                            <td>@item.CustomerEmail</td>
+                                            <td>@item.CreationDate</td>
+                                            <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="showModal(@item.Id);">Dispatch</button></td>
+                                        </tr>
 
                                     }
 
@@ -174,11 +174,11 @@
                                     <span class="badge badge-primary badge-pill pull-right">@Model.Orders.Count</span>
                                 </a>
                                 <a class="list-group-item list-group-item-action waves-effect">
-                                    Issues
-                                    <span class="badge badge-primary badge-pill pull-right">123</span>
+                                    Shipped Orders
+                                    <span class="badge badge-primary badge-pill pull-right">@Model.ShippedOrders.Count</span>
                                 </a>
                                 <a class="list-group-item list-group-item-action waves-effect">
-                                    Messages
+                                    Issues
                                     <span class="badge badge-primary badge-pill pull-right">8</span>
                                 </a>
                             </div>
@@ -202,35 +202,34 @@
                             <table class="table table-hover">
                                 <!-- Table head -->
                                 <thead class="blue-grey lighten-4">
+                                    <theader><h4>Top 5 Ordered Recipes</h4></theader>
                                     <tr>
                                         <th>#</th>
-                                        <th>Lorem</th>
-                                        <th>Ipsum</th>
-                                        <th>Dolor</th>
+                                        <th>Recipe</th>
+                                        <th># of Orders</th>
+
                                     </tr>
                                 </thead>
                                 <!-- Table head -->
                                 <!-- Table body -->
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 3</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Cell 4</td>
-                                        <td>Cell 5</td>
-                                        <td>Cell 6</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Cell 7</td>
-                                        <td>Cell 8</td>
-                                        <td>Cell 9</td>
-                                    </tr>
-                                </tbody>
+                                    @{
+                                        int counter = 0;
+                                        for (int i = 0; i < Model.Top5OrderedRecipes.Count; i++)
+
+                                        {
+                                            counter++;
+                                                <tr onclick="routeToDetails(@Model.Top5OrderedRecipes[i].RecipeId)">
+                                           
+                                                    <th scope="row" >@counter.ToString()</th>
+                                                    <td>@Model.Top5OrderedRecipes[i].Label</td>
+                                                    <td>@Model.Top5OrderedRecipes[i].Count</td>
+                                                
+                                                </tr>
+                                                }
+                                                }
+
+                                        </tbody>
                                 <!-- Table body -->
                             </table>
                             <!-- Table  -->
@@ -671,7 +670,7 @@
                             </div>
                             <!--Modal: Login / Register Form Demo-->
                             <!-- Central Modal Large Info-->
-                            <div class="modal fade" id="centralModalLGInfoDemo"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                            <div class="modal fade" id="centralModalLGInfoDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-lg modal-notify modal-info" role="document">
                                     <!--Content-->
@@ -1121,7 +1120,7 @@
         <hr class="my-4">
         <!-- Social icons -->
         <div class="pb-4">
-            
+
         </div>
         <!-- Social icons -->
         <!--Copyright-->
@@ -1130,7 +1129,7 @@
             <a href="#!" target="_blank"> Recipe Project Lernia </a>
         </div>
         <!--/.Copyright-->
-    </footer> 
+    </footer>
     <!--/.Footer-->
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -1149,7 +1148,7 @@
     </script>
     <!-- Charts -->
     <script>
-       
+
 
         //pie
         var ctxP = document.getElementById("pieChart").getContext('2d');
@@ -1268,7 +1267,7 @@
                 zoom: 20
             };
 
-            var var_map = new google.maps.Map(document.getElementById("map-container"),
+            var var_map = new google.maps.Map(document.getElementById("map-container-google-2"),
                 var_mapoptions);
 
             var var_marker = new google.maps.Marker({
@@ -1315,9 +1314,12 @@
         showModal = (id) => {
             $("#centralModalLGInfoDemo").modal('show');
             fetch(`Order/Deploy/${id}`);
-            
+
         }
-    
+        routeToDetails = (id) => {
+            location.href = `Home/Details/${id}`
+        }
+
     </script>
 </body>
 </html>

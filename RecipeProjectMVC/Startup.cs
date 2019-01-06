@@ -51,6 +51,7 @@ namespace RecipeProjectMVC
             services.AddTransient<NutritioninfoRepository>();
             services.AddTransient<OrderRepository>();
             services.AddTransient<OrderDeploymentService>();
+            services.AddTransient<DashBoardInformationService>();
             services.AddSession();
             services.AddMvc();
         }
