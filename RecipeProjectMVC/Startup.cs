@@ -44,7 +44,7 @@ namespace RecipeProjectMVC
             .AddDefaultTokenProviders();
 
             //    Only needed if login path shoudn't be "/Account/Login" 
-            services.ConfigureApplicationCookie(o => o.LoginPath = "/LogIn");
+            services.ConfigureApplicationCookie(o => o.LoginPath = "/Login");
 
             services.AddTransient<AccountService>();
             services.AddTransient<IRecipeService, RecipeService>();
@@ -61,6 +61,7 @@ namespace RecipeProjectMVC
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration conf)
         {
             app.UseDeveloperExceptionPage();
+            app.UseAuthentication(); // Identity
             app.UseMvcWithDefaultRoute();
             //app.Run(async (context) =>
             //{
@@ -71,7 +72,6 @@ namespace RecipeProjectMVC
             app.UseSession();
             app.UseStaticFiles();
             app.UseStatusCodePages();
-            app.UseAuthentication(); // Identity
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<RecipeDTO, CaloriesDTO>()

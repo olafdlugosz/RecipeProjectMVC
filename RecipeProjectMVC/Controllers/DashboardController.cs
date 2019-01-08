@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using RecipeProjectMVC.Services;
@@ -9,6 +10,7 @@ using RecipeProjectMVC.Services.Repositories;
 
 namespace RecipeProjectMVC.Controllers
 {
+  
     public class DashboardController : Controller
     {
         private readonly OrderRepository _orderRepo;

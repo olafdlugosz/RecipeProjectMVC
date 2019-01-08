@@ -15,6 +15,8 @@ namespace RecipeProjectMVC.ViewModels
         public IEnumerable<KeyValuePair<string, int>> Top5Customers { get; set; }
         public string Alert { get; set; }
         public DateTime? TimeOfIncident { get; set; }
+        public double IncidentsToOrdersPearsonsCorrelation { get; set; }
+        public double IncidentsToOrdersSpearmansCorrelation { get; set; }
 
 
     }

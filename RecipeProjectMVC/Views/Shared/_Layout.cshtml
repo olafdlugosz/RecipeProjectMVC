@@ -22,7 +22,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-light blue-gradient scrolling-navbar">
 
         <!-- Navbar brand -->
-        <a class="navbar-brand active" href="/Home/Index"><i class="fas fa-utensils fa-2x white-text"> Home</i></a>
+        <a class="navbar-brand active" href="/Home/Index" style="margin-left: 15px;"><i class="fas fa-utensils fa-2x white-text"> Home</i></a>
 
         <!-- Collapse button -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -43,7 +43,7 @@
                     <a class="nav-link" href="/Diet/Index"><i class="fas fa-jedi white-text fa-2x"> Diets</i></a>
                 </li>
 
-                @if (SignInManager.IsSignedIn(User))
+                @if(SignInManager.IsSignedIn(User))
                 {
                     <form asp-area="" asp-controller="Account" asp-action="Logout" id="logoutForm" method="post" class="navbar-right">
                           
@@ -67,9 +67,6 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                 </div>
             </form>
-            <div>
-                <input type="text" class="typeahead" data-provide="typeahead">
-            </div>
         </div>
         <!-- Collapsible content -->
 
@@ -84,10 +81,10 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/js/mdb.min.js"></script>
     <!-- My Scripts -->
-    <script type="text/javascript" src="~/scripts/Animations.js"></script>
     <div>
         @RenderBody()
     </div>
+    <script type="text/javascript" src="~/scripts/Animations.js"></script>
 
 
 

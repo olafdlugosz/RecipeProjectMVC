@@ -27,7 +27,7 @@ namespace RecipeProjectMVC.Controllers
         }
 
         [HttpPost]
-        [Route("logIn")]
+        [Route("login")]
         public async Task<IActionResult> Login(AdminLogInViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -45,12 +45,12 @@ namespace RecipeProjectMVC.Controllers
             if (string.IsNullOrWhiteSpace(viewModel.ReturnUrl))
             {
                 //return RedirectToAction(nameof(HomeController.Index), "Home");
-                return Redirect("/Home/Index");
+                return Redirect("/Dashboard/Dashboard");
             }
             else
                 return Redirect(viewModel.ReturnUrl);
         }
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _service.LogOut();

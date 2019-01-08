@@ -36,7 +36,8 @@ namespace RecipeProjectMVC.Services
             var msg = new MailMessage();
             msg.To.Add(orderToDeploy.CustomerEmail);
             msg.From = new MailAddress("recipe.project.lernia@gmail.com");
-            msg.Subject = "Your recipe for: " + orderRecipe.Label + " has arrived";
+            msg.Subject = "Your recipe for " + orderRecipe.Label + " has arrived";
+            
             msg.Body = CreateMessageBody(orderBody);
             msg.IsBodyHtml = true;
             
