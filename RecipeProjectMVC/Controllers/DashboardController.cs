@@ -10,7 +10,7 @@ using RecipeProjectMVC.Services.Repositories;
 
 namespace RecipeProjectMVC.Controllers
 {
-  
+    [Authorize] 
     public class DashboardController : Controller
     {
         private readonly OrderRepository _orderRepo;
@@ -27,6 +27,8 @@ namespace RecipeProjectMVC.Controllers
             _dashboardInfoService = dashBoardInformationService;
             _cache = cache;
         }
+        [Authorize]
+        [Route("/2hMjOzkAC0iayI1m6IeDhQ/Dashboard")]
         public async Task<IActionResult> Dashboard()
         {
            
@@ -34,6 +36,7 @@ namespace RecipeProjectMVC.Controllers
             return View(model);
         }
        // [HttpPost]
+       [Authorize]
         [Route("DashBoard/Order/Deploy/{id?}")]
         public IActionResult DeployOrder(int id)
         {

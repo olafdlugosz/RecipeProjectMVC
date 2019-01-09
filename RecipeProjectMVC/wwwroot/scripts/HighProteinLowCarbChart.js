@@ -60,10 +60,10 @@ displayHighProteinLowCarbLineChart = () => {
                 label: "Protein",
                 data: proteinListForHPLCLineChart,
                 backgroundColor: [
-                    'rgba(105, 0, 132, .2)',
+                    'rgba(100, 0, 50, .3)',
                 ],
                 borderColor: [
-                    'rgba(200, 99, 132, .7)',
+                    'rgba(0, 0, 255, .7)',
                 ],
                 borderWidth: 2
             },
@@ -71,7 +71,7 @@ displayHighProteinLowCarbLineChart = () => {
                 label: "Carbs",
                 data: carbListForHPLCLineChart,
                 backgroundColor: [
-                    'rgba(0, 137, 132, .2)',
+                    'rgba(0, 0, 255, .3)',
                 ],
                 borderColor: [
                     'rgba(0, 10, 130, .7)',

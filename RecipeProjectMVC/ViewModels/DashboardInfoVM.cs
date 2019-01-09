@@ -17,6 +17,7 @@ namespace RecipeProjectMVC.ViewModels
         public DateTime? TimeOfIncident { get; set; }
         public double IncidentsToOrdersPearsonsCorrelation { get; set; }
         public double IncidentsToOrdersSpearmansCorrelation { get; set; }
+        public string IncidentPrediction { get; set; }
 
 
     }

@@ -18,8 +18,7 @@ namespace RecipeProjectMVC.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        [Route("login")]
+        [Route("/2hMjOzkAC0iayI1m6IeDhQ/Login")]
         public IActionResult Login(string returnUrl)
         {
             var model = new AdminLogInViewModel { ReturnUrl = returnUrl };
@@ -27,7 +26,7 @@ namespace RecipeProjectMVC.Controllers
         }
 
         [HttpPost]
-        [Route("login")]
+        [Route("/2hMjOzkAC0iayI1m6IeDhQ/Login")]
         public async Task<IActionResult> Login(AdminLogInViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -45,7 +44,7 @@ namespace RecipeProjectMVC.Controllers
             if (string.IsNullOrWhiteSpace(viewModel.ReturnUrl))
             {
                 //return RedirectToAction(nameof(HomeController.Index), "Home");
-                return Redirect("/Dashboard/Dashboard");
+                return Redirect("/2hMjOzkAC0iayI1m6IeDhQ/Dashboard");
             }
             else
                 return Redirect(viewModel.ReturnUrl);

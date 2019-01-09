@@ -56,11 +56,11 @@
                 <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-user mr-3"></i>Profile
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                <a href="#topCustomers" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-table mr-3"></i>Tables
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-map mr-3"></i>Maps
+                <a href="#lineChart" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fas fa-paw fa-lg mr-3"></i>Animal Tracker
                 </a>
                 <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-money-bill-alt mr-3"></i>Orders
@@ -110,7 +110,7 @@
                             <!-- Table  -->
                             <table class="table table-hover">
                                 <!-- Table head -->
-                                <thead class="blue-grey lighten-4">
+                                <thead id="topCustomers"class="blue-grey lighten-4">
                                     <tr>
                                         <th><i class="fas fa-align-justify"></i></th>
                                         <th>Customer Name</th>
@@ -322,7 +322,10 @@
                         <div class="card-body">
                             <canvas id="lineChart"></canvas>
 
-                            <h6 class="card-footer">Pearson's Correlation: @Model.IncidentsToOrdersPearsonsCorrelation <br> Spearman's Correlation: @Model.IncidentsToOrdersSpearmansCorrelation</h6>
+                            <h6 class="card-footer">Pearson's Correlation: @Model.IncidentsToOrdersPearsonsCorrelation <br>
+                            Spearman's Correlation: @Model.IncidentsToOrdersSpearmansCorrelation <br>
+                            @Model.IncidentPrediction
+                            </h6>
 
                         </div>
                     </div>
@@ -334,17 +337,22 @@
                     <!--Card-->
                     <div class="card">
                         <!-- Card header -->
-                        <div class="card-header">Radar Chart</div>
+                        <div class="card-header"><i class="fas fa-paw fa-lg"></i> Animal Tracker</div>
                         <!--Card content-->
                         <div class="card-body">
-                            <canvas id="radarChart"></canvas>
+                            <!--Google map-->
+                            <div id="map-container-google-2" class="z-depth-1-half map-container" style="height: 500px">
+                                <iframe src="https://maps.google.com/maps?q=chicago&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                                        style="border:0" allowfullscreen></iframe>
+                            </div>
+                            <!--Google Maps-->
                         </div>
                     </div>
                     <!--/.Card-->
                 </div>
                 <!--Grid column-->
                 <!--Grid column-->
-                <div class="col-lg-6 col-md-6 mb-4">
+                @*<div class="col-lg-6 col-md-6 mb-4">
                     <!--Card-->
                     <div class="card">
                         <!-- Card header -->
@@ -377,21 +385,7 @@
             <div class="row wow fadeIn">
                 <!--Grid column-->
                 <div class="col-md-6 mb-4">
-                    <!--Card-->
-                    <div class="card">
-                        <!-- Card header -->
-                        <div class="card-header">Animal Tracker</div>
-                        <!--Card content-->
-                        <div class="card-body">
-                            <!--Google map-->
-                            <div id="map-container-google-2" class="z-depth-1-half map-container" style="height: 500px">
-                                <iframe src="https://maps.google.com/maps?q=chicago&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                                        style="border:0" allowfullscreen></iframe>
-                            </div>
-                            <!--Google Maps-->
-                        </div>
-                    </div>
-                    <!--/.Card-->
+
                 </div>
                 <!--Grid column-->
                 <!--Grid column-->
@@ -1133,7 +1127,7 @@
                 <!--Grid column-->
             </div>
             <!--Grid row-->
-        </div>
+        </div>*@
     </main>
     <!--Main layout-->
     <!--Footer-->
@@ -1225,43 +1219,44 @@
                 ]
             },
             options: {
-                responsive: true
+                responsive: true,
+                lineTension: 1,
             }
         });
 
 
         //radar
-        var ctxR = document.getElementById("radarChart").getContext('2d');
-        var myRadarChart = new Chart(ctxR, {
-            type: 'radar',
-            data: {
-                labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-                datasets: [{
-                    label: "My First dataset",
-                    data: [65, 59, 90, 81, 56, 55, 40],
-                    backgroundColor: [
-                        'rgba(105, 0, 132, .2)',
-                    ],
-                    borderColor: [
-                        'rgba(200, 99, 132, .7)',
-                    ],
-                    borderWidth: 2
-                }, {
-                    label: "My Second dataset",
-                    data: [28, 48, 40, 19, 96, 27, 100],
-                    backgroundColor: [
-                        'rgba(0, 250, 220, .2)',
-                    ],
-                    borderColor: [
-                        'rgba(0, 213, 132, .7)',
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
+        //var ctxR = document.getElementById("radarChart").getContext('2d');
+        //var myRadarChart = new Chart(ctxR, {
+        //    type: 'radar',
+        //    data: {
+        //        labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        //        datasets: [{
+        //            label: "My First dataset",
+        //            data: [65, 59, 90, 81, 56, 55, 40],
+        //            backgroundColor: [
+        //                'rgba(105, 0, 132, .2)',
+        //            ],
+        //            borderColor: [
+        //                'rgba(200, 99, 132, .7)',
+        //            ],
+        //            borderWidth: 2
+        //        }, {
+        //            label: "My Second dataset",
+        //            data: [28, 48, 40, 19, 96, 27, 100],
+        //            backgroundColor: [
+        //                'rgba(0, 250, 220, .2)',
+        //            ],
+        //            borderColor: [
+        //                'rgba(0, 213, 132, .7)',
+        //            ],
+        //            borderWidth: 2
+        //        }]
+        //    },
+        //    options: {
+        //        responsive: true
+        //    }
+        //});
 
         //doughnut
         var ctxD = document.getElementById("doughnutChart").getContext('2d');
@@ -1343,7 +1338,7 @@
 
         }
         routeToDetails = (id) => {
-          //  location.href = `Home/Details/${id}`
+            location.href = `/Home/Details/${id}`
         }
 
     </script>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeProjectMVC.DTO;
 using RecipeProjectMVC.Repositories;
@@ -10,6 +11,7 @@ using RecipeProjectMVC.Services;
 namespace RecipeProjectMVC.Controllers
 {
     // [Route("[controller]/[action]/{id?}")]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly IRecipeService _service;
@@ -41,12 +43,12 @@ namespace RecipeProjectMVC.Controllers
 
             return await _service.GetTypeAheadDataAsync(searchTerm);
         }
-        public async Task<IActionResult> Top10View()
-        {
-            var model = await _service.GetTop10VitaminCRecipes();
-            var modelCalories = await _service.GetTop10CalorieRecipes();
-            return View(model);
-        }
+        //public async Task<IActionResult> Top10View()
+        //{
+        //    var model = await _service.GetTop10VitaminCRecipes();
+        //    var modelCalories = await _service.GetTop10CalorieRecipes();
+        //    return View(model);
+        //}
         [HttpGet]
         [Route("Home/Details/GetDetails/{id}")]
         public IActionResult GetDetails(int id)

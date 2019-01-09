@@ -38,7 +38,7 @@ namespace RecipeProjectMVC.Services
             msg.From = new MailAddress("recipe.project.lernia@gmail.com");
             msg.Subject = "Your recipe for " + orderRecipe.Label + " has arrived";
             
-            msg.Body = CreateMessageBody(orderBody);
+            msg.Body = CreateMessageBody(orderBody, orderRecipe.Url);
             msg.IsBodyHtml = true;
             
 
@@ -63,9 +63,9 @@ namespace RecipeProjectMVC.Services
             }
             _orderRepo.ShipOrder(orderToDeploy.Id);
         }
-        private string CreateMessageBody(ICollection<IngredientDTO> ingredients)
+        private string CreateMessageBody(ICollection<IngredientDTO> ingredients, string cookinginstructionsUrl)
         {
-            string msgBody = "";
+            string msgBody = $"Go here for cooking instructions: {cookinginstructionsUrl} <br /> Shopping List: <br />";
             foreach (var item in ingredients)
             {
                 msgBody += item.Text + "<br />";

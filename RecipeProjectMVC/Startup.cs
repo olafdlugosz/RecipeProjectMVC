@@ -44,7 +44,7 @@ namespace RecipeProjectMVC
             .AddDefaultTokenProviders();
 
             //    Only needed if login path shoudn't be "/Account/Login" 
-            services.ConfigureApplicationCookie(o => o.LoginPath = "/Login");
+            services.ConfigureApplicationCookie(o => o.LoginPath = "/2hMjOzkAC0iayI1m6IeDhQ/Login");
 
             services.AddTransient<AccountService>();
             services.AddTransient<IRecipeService, RecipeService>();
@@ -62,13 +62,13 @@ namespace RecipeProjectMVC
         {
             app.UseDeveloperExceptionPage();
             app.UseAuthentication(); // Identity
-            app.UseMvcWithDefaultRoute();
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync(conf["test"]);
-
-            //});
-            //return;
+           // app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}");
+            });
             app.UseSession();
             app.UseStaticFiles();
             app.UseStatusCodePages();
@@ -147,12 +147,7 @@ namespace RecipeProjectMVC
             }
             );
             AutoMapper.Mapper.Configuration.AssertConfigurationIsValid();
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+
         }
     }
 }

@@ -69,7 +69,7 @@ displayLCHFLineChart = () => {
                 label: "Carbs",
                 data: carbListForLineChart,
                 backgroundColor: [
-                    'rgba(0, 137, 132, .2)',
+                    'rgba(0, 137, 132, .3)',
                 ],
                 borderColor: [
                     'rgba(0, 10, 130, .7)',

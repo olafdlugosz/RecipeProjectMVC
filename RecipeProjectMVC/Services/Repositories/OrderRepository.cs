@@ -70,6 +70,13 @@ namespace RecipeProjectMVC.Services.Repositories
             return top5;
 
         }
+        public IEnumerable<object> GetTop5CustomersObject()
+        {
+            return _context.Order
+                .GroupBy(x => x.CustomerEmail)
+                .Select(x => new { Customer = x.Key, OrderCount = x.Count() })
+                .ToArray();
+        }
         public void RecordAlert(Alert alert)
         {
         
