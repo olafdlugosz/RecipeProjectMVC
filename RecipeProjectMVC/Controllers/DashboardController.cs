@@ -10,7 +10,7 @@ using RecipeProjectMVC.Services.Repositories;
 
 namespace RecipeProjectMVC.Controllers
 {
-    [Authorize] 
+   // [Authorize] 
     public class DashboardController : Controller
     {
         private readonly OrderRepository _orderRepo;

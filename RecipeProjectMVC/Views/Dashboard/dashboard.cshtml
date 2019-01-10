@@ -320,14 +320,26 @@
                         <div class="card-header"> <i class="fab fa-gripfire"></i> Orders vs  Incidents <i class="fab fa-gripfire"></i></div>
                         <!--Card content-->
                         <div class="card-body">
-                            <canvas id="lineChart"></canvas>
-
-                            <h6 class="card-footer">Pearson's Correlation: @Model.IncidentsToOrdersPearsonsCorrelation <br>
-                            Spearman's Correlation: @Model.IncidentsToOrdersSpearmansCorrelation <br>
-                            @Model.IncidentPrediction
-                            </h6>
-
-                        </div>
+                            <div class="card" style="margin-bottom: 5px;">
+                                <div class="card-body">
+                                    <canvas id="lineChart"></canvas>
+                            <hr />
+                            @*<div class="card-footer">*@
+                                @*<div class="card">
+                                    <div class="card-body">*@
+                                        <h5>Correlation</h5>
+                                        <h6>
+                                            Pearson's Correlation: @Model.IncidentsToOrdersPearsonsCorrelation
+                                        </h6>
+                                        <h6>Spearman's Correlation: @Model.IncidentsToOrdersSpearmansCorrelation </h6>                               
+                                        <hr>
+                                        <h5>Future Prediction using Linear Regression (Least Squares Method)</h5>
+                                        <h6>@Model.IncidentPredictionCount</h6>
+                                        <h6>@Model.IncidentPredictionMonth </h6>
+                                    </div>
+                                    </div>
+                                </div>
+                        @*</div>*@
                     </div>
                     <!--/.Card-->
                 </div>

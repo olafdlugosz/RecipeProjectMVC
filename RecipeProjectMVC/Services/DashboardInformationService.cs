@@ -21,7 +21,7 @@ namespace RecipeProjectMVC.Services
         private readonly IMemoryCache _cache;
         private List<double> Orders = new List<double> { 40, 35, 20, 10 };
         private List<double> Incidents = new List<double> { 30, 35, 40, 50 };
-        private List<double> MonthsOfIncidents = new List<double> { 0, 1, 2, 3, 4 };
+        private List<double> MonthsOfIncidents = new List<double> { 0, 1, 2, 3 };
         public DashBoardInformationService(IRecipeService recipeService, OrderRepository orderRepository, IMemoryCache cache)
         {
             _recipeService = recipeService;
@@ -38,7 +38,8 @@ namespace RecipeProjectMVC.Services
             model.Top5Customers = _orderRepo.GetTop5Customers();
             model.IncidentsToOrdersPearsonsCorrelation = ComputePearsonsCorrelationCoeefficient(Orders, Incidents);
             model.IncidentsToOrdersSpearmansCorrelation = ComputeSpearmansRankCorrelation(Orders.ToArray(), Incidents.ToArray());
-            model.IncidentPrediction = PredictFuture(Incidents.ToArray(), MonthsOfIncidents.ToArray());
+            model.IncidentPredictionCount = PredictFutureIncidentCount(MonthsOfIncidents.ToArray(), Incidents.ToArray()); 
+            model.IncidentPredictionMonth = PredictFutureIncidentMonth(MonthsOfIncidents.ToArray(), Incidents.ToArray()); 
             if (_cache.Get("Alert") != null)
             {
                 var warning = _cache.Get<Alert>("Alert");
@@ -74,8 +75,6 @@ namespace RecipeProjectMVC.Services
             var result = ab / Math.Sqrt(aaSigma * bbSigma);
 
             return result;
-
-
         }
         public static double ComputeSpearmansRankCorrelation(double[] X, double[] Y)
         {
@@ -110,21 +109,39 @@ namespace RecipeProjectMVC.Services
         {
             return d * d;
         }
-        public string PredictFuture(double[] xVal, double[] yVal)
+        public string PredictFutureIncidentCount(double[] xVal, double[] yVal)
         {
             double rsquared;
             double yintercept;
             double slope;
-            LinearRegression(xVal, yVal, 0, 5, out rsquared, out yintercept, out slope);
+            LinearRegression(xVal, yVal, 0, 3, out rsquared, out yintercept, out slope);
 
-            return $"Next possible attack: {yintercept + (slope * 6)}";
+            double nextNumberOfAttacks = yintercept + (slope * 4);
+            double nextMonthOfAttack = (nextNumberOfAttacks - yintercept) / slope;
+
+             return $"Next possible number of incidents: {nextNumberOfAttacks}";
+           
+        }
+        public string PredictFutureIncidentMonth(double[] xVal, double[] yVal)
+        {
+            double rsquared;
+            double yintercept;
+            double slope;
+            LinearRegression(xVal, yVal, 0, 3, out rsquared, out yintercept, out slope);
+
+            double nextNumberOfAttacks = yintercept + (slope * 4);
+            double nextMonthOfAttack = (nextNumberOfAttacks - yintercept) / slope;
+
+            return $"Next possible month of incident: January (index from start of data recording: {nextMonthOfAttack}) ";
+
         }
         public static void LinearRegression(double[] xVals, double[] yVals,
                                         int inclusiveStart, int exclusiveEnd,
                                         out double rsquared, out double yintercept,
                                         out double slope)
         {
-            Debug.Assert(xVals.Length == yVals.Length);
+            
+            Debug.Assert(xVals.Length == yVals.Length); //Assertion Failed
             double sumOfX = 0;
             double sumOfY = 0;
             double sumOfXSq = 0;
