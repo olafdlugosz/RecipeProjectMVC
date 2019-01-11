@@ -364,7 +364,7 @@
                 </div>
                 <!--Grid column-->
                 <!--Grid column-->
-                @*<div class="col-lg-6 col-md-6 mb-4">
+                <div class="col-lg-6 col-md-6 mb-4" hidden>
                     <!--Card-->
                     <div class="card">
                         <!-- Card header -->
@@ -378,7 +378,7 @@
                 </div>
                 <!--Grid column-->
                 <!--Grid column-->
-                <div class="col-lg-6 col-md-6 mb-4">
+                <div class="col-lg-6 col-md-6 mb-4" hidden>
                     <!--Card-->
                     <div class="card">
                         <!-- Card header -->
@@ -736,7 +736,7 @@
                                     <!--/.Content-->
                                 </div>
                             </div>
-                            <!-- Central Modal Large Info-->
+                            @*<!-- Central Modal Large Info-->
                             <!-- Central Modal Fluid Success-->
                             <div class="modal fade" id="centralModalFluidSuccessDemo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                  aria-hidden="true">
@@ -1346,6 +1346,7 @@
 
         showModal = (id) => {
             $("#centralModalLGInfoDemo").modal('show');
+            console.log(id);
             fetch(`Order/Deploy/${id}`);
 
         }

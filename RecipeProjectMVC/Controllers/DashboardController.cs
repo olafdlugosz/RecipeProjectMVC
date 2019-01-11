@@ -37,7 +37,7 @@ namespace RecipeProjectMVC.Controllers
         }
        // [HttpPost]
        [Authorize]
-        [Route("DashBoard/Order/Deploy/{id?}")]
+        [Route("/2hMjOzkAC0iayI1m6IeDhQ/Order/Deploy/{id?}")]
         public IActionResult DeployOrder(int id)
         {
             _deploymentService.DeployOrder(id);
