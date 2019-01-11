@@ -50,7 +50,7 @@ namespace RecipeProjectMVC.Controllers
         //    return View(model);
         //}
         [HttpGet]
-        [Route("Home/Details/GetDetails/{id}")]
+        [Route("Home/GetDetails/{id}")]
         public IActionResult GetDetails(int id)
         {
             var model = _service.GetRecípe(id);

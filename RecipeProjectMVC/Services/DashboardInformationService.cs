@@ -111,6 +111,7 @@ namespace RecipeProjectMVC.Services
         }
         public string PredictFutureIncidentCount(double[] xVal, double[] yVal)
         {
+            if (xVal.Length != yVal.Length) return "xVal != yVal";
             double rsquared;
             double yintercept;
             double slope;
@@ -124,6 +125,7 @@ namespace RecipeProjectMVC.Services
         }
         public string PredictFutureIncidentMonth(double[] xVal, double[] yVal)
         {
+            if (xVal.Length != yVal.Length) return "xVal != yVal";
             double rsquared;
             double yintercept;
             double slope;
